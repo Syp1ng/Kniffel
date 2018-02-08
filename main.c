@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+////hallo
 
 //Globale Variablen
 int anzSpieler;
