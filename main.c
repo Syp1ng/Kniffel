@@ -60,7 +60,7 @@ printf("%d\n",aktWuerfel[0]);
 void generate()
 {
 srand(time(NULL));
-RandomNumberGenerator(1,7,5);
+RandomNumberGenerator(1,7,5);   // generate a Random number
 }
 
 void wuerfeln()
