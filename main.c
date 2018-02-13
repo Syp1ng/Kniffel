@@ -11,7 +11,7 @@ int aktWuerfel[];
 int saveWuerfel[];
 int main()
 {
-
+    //Program start
     init();
     wuerfeln();
     AnzeigeSpieler();
