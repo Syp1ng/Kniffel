@@ -74,19 +74,25 @@ void SelectCube(){
     WuerfelMitgenommen = 0;
     for(int i =1; i<= 6; i++){
         char ctemp;
-        printf("Möchtest du Würfel %d speichern?",i); //Gib j--> für Ja, n --> nein, #--> alles neu
-        do{
+        printf("Moechtest du Wuerfel %d speichern? \n",i); //Gib j--> für Ja, n --> nein, #--> alles neu
+        /*do{
+        while (getchar() != '\n')
+        continue;
         scanf(" %c", &ctemp);
-        }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');
+        }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');*/
+        while (getchar() != '\n')
+        continue;
+        scanf(" %c", &ctemp);
 
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
-            printf("Würfel %i wurde gespeichert!", i);
+            printf("Wuerfel %i wurde gespeichert!", i);
             WuerfelMitgenommen++;
         }
-            else if(ctemp == 'n'){
-                printf("Würfel %i wurde nicht gespeichert!", i);
-            }
+        else if(ctemp == 'n'){
+            printf("Wuerfel %i wurde nicht gespeichert!", i);
+        }
+
     }
 
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
