@@ -76,18 +76,19 @@ void SelectCube(){
         char ctemp;
         printf("Möchtest du Würfel %d speichern?",i); //Gib j--> für Ja, n --> nein, #--> alles neu
         do{
-        scanf("%c", &ctemp);
+        scanf(" %c", &ctemp);
         }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');
 
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
             printf("Würfel %i wurde gespeichert!", i);
-            WuerfelMitgenommen++;*/
+            WuerfelMitgenommen++;
         }
             else if(ctemp == 'n'){
                 printf("Würfel %i wurde nicht gespeichert!", i);
             }
     }
+
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
 }
 
@@ -95,59 +96,60 @@ void WuerfelAnzeige(){
    for(int i = 0;i<6; i++){
     switch(Wuerfel[i]){
    case 1:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("|       ||  ");
-       printf("|       ||  ");
-       printf("|   #   ||  ");
-       printf("|       ||  ");
-       printf("|_______|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("|       ||  \n");
+       printf("|       ||  \n");
+       printf("|   #   ||  \n");
+       printf("|       ||  \n");
+       printf("|_______|/  \n");
        break;
     case 2:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("| #     ||  ");
-       printf("|       ||  ");
-       printf("|       ||  ");
-       printf("|       ||  ");
-       printf("|_____#_|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("| #     ||  \n");
+       printf("|       ||  \n");
+       printf("|       ||  \n");
+       printf("|       ||  \n");
+       printf("|_____#_|/  \n");
        break;
     case 3:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("| #     ||  ");
-       printf("|       ||  ");
-       printf("|   #   ||  ");
-       printf("|       ||  ");
-       printf("|_____#_|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("| #     ||  \n");
+       printf("|       ||  \n");
+       printf("|   #   ||  \n");
+       printf("|       ||  \n");
+       printf("|_____#_|/  \n");
        break;
     case 4:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("| #   # ||  ");
-       printf("|       ||  ");
-       printf("|       ||  ");
-       printf("|       ||  ");
-       printf("| #___#_|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("| #   # ||  \n");
+       printf("|       ||  \n");
+       printf("|       ||  \n");
+       printf("|       ||  \n");
+       printf("| #___#_|/  \n");
        break;
     case 5:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("| #   # ||  ");
-       printf("|       ||  ");
-       printf("|   #   ||  ");
-       printf("|       ||  ");
-       printf("| #___#_|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("| #   # ||  \n");
+       printf("|       ||  \n");
+       printf("|   #   ||  \n");
+       printf("|       ||  \n");
+       printf("| #___#_|/  \n");
        break;
     case 6:
-       printf("  _______   ");
-       printf(" /______/|  ");
-       printf("| #   # ||  ");
-       printf("|       ||  ");
-       printf("| #   # ||  ");
-       printf("|       ||  ");
-       printf("|_#___#_|/  ");
+       printf("  _______   \n");
+       printf(" /______/|  \n");
+       printf("| #   # ||  \n");
+       printf("|       ||  \n");
+       printf("| #   # ||  \n");
+       printf("|       ||  \n");
+       printf("|_#___#_|/  \n");
        break;
     default: break;
+   }
    }
 }
