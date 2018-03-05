@@ -98,7 +98,7 @@ void SelectCube(){
 }
 
 void WuerfelAnzeige(){
-   for(int i = 0;i<6; i++){
+   for(int i = 0;i<5; i++){
     switch(Wuerfel[i]){
    case 1:
        printf("  _______   \n");
