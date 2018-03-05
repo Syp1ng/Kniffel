@@ -10,7 +10,6 @@ int aktSpieler=1;
 int Wuerfel[];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
-int *p;
 
 
 
@@ -72,7 +71,7 @@ void generate(){
 void SelectCube(){
     int tempWuerfel[5];
     WuerfelMitgenommen = 0;
-    for(int i =1; i<= 6; i++){
+    for(int i =1; i<= 5; i++){
         char ctemp;
         printf("Moechtest du Wuerfel %d speichern? \n",i); //Gib j--> für Ja, n --> nein, #--> alles neu
         /*do{
