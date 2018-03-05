@@ -7,102 +7,147 @@
 //Globale Variablen
 int anzSpieler;
 int aktSpieler=1;
-int aktWuerfel[];
-int saveWuerfel[];
+int Wuerfel[];
+int WuerfelMitgenommen =0;
+int Wurf = 0; //Wurf <=3
+int *p;
+
+
+
 int main()
 {
     //Program start
     init();
-    wuerfeln();
-    AnzeigeSpieler();
+    SpielerAnDerReihe();
     return 0;
 }
+void SpielerAnDerReihe(){
+    while(Wurf <=3){
+    generate();   // generate a Random number
+    WuerfelAnzeige();
+    SelectCube();
+    }
+    WuerfelAnzeige();
+    aktSpieler++;
+    if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
+}
 
-
-    void init() {
-
+void init() {
     printf("Geben Sie die Anzahl der Spieler ein: ");
 
     scanf("%i", &anzSpieler);
 
     printf("Anzahl der Spieler: %i\n", anzSpieler);
-
     char spielername [anzSpieler][30];
 
     printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
 
     for (int i = 0; i < anzSpieler; i++) {
-        printf("spielername[%i] = ",i);
+        printf("Geben Sie Spielername %d an: ",i+1);
         scanf("%s", &spielername[i]);
     }
 
-    printf("\nTesten\n\n");
-
     for(int i = 0; i < anzSpieler; i++) {
-        printf("%s\n", spielername[i]);
+        printf("Spieler %d = %s\n", i+1, spielername[i]);
     }
-}
 
+}
 // the random function
-void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsToGenerate)
-{
-int nRandomNumber = 0;
-for (int i = 0; i < nNumOfNumsToGenerate; i++)
-{
-nRandomNumber = rand()%(nMax-nMin) + nMin;
-aktWuerfel[i]= nRandomNumber;
-printf("%d ", aktWuerfel[i]);
-}
-printf("\n");
-printf("%d\n",aktWuerfel[0]);
-}
-
-void generate()
-{
-srand(time(NULL));
-RandomNumberGenerator(1,7,5);   // generate a Random number
-}
-
-void wuerfeln()
-{
-    generate();
-
-}
-
-void AnzeigeSpieler()
-{
-
-    int antwort;
-    printf("Spielername[i]");
-    printf("Nochmal neu wuerfeln ? 0 = no/1 = yes?");
-    scanf("%i", &antwort);
-    if(antwort == 0)
+void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsToGenerate){
+    int nRandomNumber = 0;
+    for (int i = 0; i < nNumOfNumsToGenerate; i++)
     {
-        //wuerfeln();
-        printf("Wie viel Wuerfel möchtest du speichern? zwischen 1-4");
-        scanf("%i",&antwort);
-        if(antwort <=0 || antwort >4)
-        {
-            printf("Wie viel Wuerfel möchtest du speichern? zwischen 1-4");
-        }
-        else if(antwort>0&& antwort <5)
-        {
-            for(int i = 0;i<antwort;i++)
-            printf("Welche Wuerfelnummer willst du speichern ? 0-4");
-           // scanf("%d",&saveWuerfel[i]);
-        }
+        nRandomNumber = rand()%(nMax-nMin) + nMin;
+        printf("%d ", nRandomNumber);
+        Wuerfel[i+WuerfelMitgenommen]= nRandomNumber;
 
     }
-    else if(antwort == 1)
-    {
-        wuerfeln();
-
-
-    }
-
-
-
-    //////////////////helllllloooooooooooooooooooooooooooooo
-
 }
 
+void generate(){
+    srand(time(NULL));
+    RandomNumberGenerator(1,7,(5-WuerfelMitgenommen));   // generate a Random number
+}
+
+void SelectCube(){
+    int tempWuerfel[5];
+    WuerfelMitgenommen = 0;
+    for(int i =1; i<= 6; i++){
+        char ctemp;
+        printf("Möchtest du Würfel %d speichern?",i); //Gib j--> für Ja, n --> nein, #--> alles neu
+        do{
+        scanf("%c", &ctemp);
+        }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');
+
+        if(ctemp == 'j'){
+            tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
+            printf("Würfel %i wurde gespeichert!", i);
+            WuerfelMitgenommen++;*/
+        }
+            else if(ctemp == 'n'){
+                printf("Würfel %i wurde nicht gespeichert!", i);
+            }
+    }
+    memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
+}
+
+void WuerfelAnzeige(){
+   for(int i = 0;i<6; i++){
+    switch(Wuerfel[i]){
+   case 1:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("|       ||  ");
+       printf("|       ||  ");
+       printf("|   #   ||  ");
+       printf("|       ||  ");
+       printf("|_______|/  ");
+       break;
+    case 2:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("| #     ||  ");
+       printf("|       ||  ");
+       printf("|       ||  ");
+       printf("|       ||  ");
+       printf("|_____#_|/  ");
+       break;
+    case 3:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("| #     ||  ");
+       printf("|       ||  ");
+       printf("|   #   ||  ");
+       printf("|       ||  ");
+       printf("|_____#_|/  ");
+       break;
+    case 4:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("| #   # ||  ");
+       printf("|       ||  ");
+       printf("|       ||  ");
+       printf("|       ||  ");
+       printf("| #___#_|/  ");
+       break;
+    case 5:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("| #   # ||  ");
+       printf("|       ||  ");
+       printf("|   #   ||  ");
+       printf("|       ||  ");
+       printf("| #___#_|/  ");
+       break;
+    case 6:
+       printf("  _______   ");
+       printf(" /______/|  ");
+       printf("| #   # ||  ");
+       printf("|       ||  ");
+       printf("| #   # ||  ");
+       printf("|       ||  ");
+       printf("|_#___#_|/  ");
+       break;
+    default: break;
+   }
+}
