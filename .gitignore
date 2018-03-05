@@ -3,3 +3,6 @@
 *.layout
 *.o
 *.exe
+Kniffel.depend
+*.depend
+*.depend
