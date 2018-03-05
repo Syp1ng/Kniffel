@@ -12,7 +12,6 @@ int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 
 
-
 int main()
 {
     //Program start
@@ -20,7 +19,23 @@ int main()
     SpielerAnDerReihe();
     return 0;
 }
+void AnzeigeTafel(){
+printf("Kategorie      : Wertung :\n");
+printf("Einser         : Augen(1):\n");
+printf("Zweier         : Augen(2):\n");
+printf("Dreier         : Augen(3):\n");
+printf("Vierer         : Augen(4):\n");
+printf("Fuenfer        : Augen(5):\n");
+printf("Dreierpasch    :  Summe  :\n");
+printf("Viererpasch    :  Summe  :\n");
+printf("Full House     :    25   :\n");
+printf("Kleine Strasse :    30   :\n");
+printf("Grosse Strasse :    40   :\n");
+printf("Kniffel        :    50   :\n");
+printf("Chance         :  Summe  :\n");}
 void SpielerAnDerReihe(){
+
+    AnzeigeTafel();
     while(Wurf <=3){
     generate();   // generate a Random number
     WuerfelAnzeige();
@@ -98,6 +113,8 @@ void SelectCube(){
 }
 
 void WuerfelAnzeige(){
+
+
    for(int i = 0;i<5; i++){
     switch(Wuerfel[i]){
    case 1:
