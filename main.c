@@ -20,19 +20,19 @@ int main()
 }
 void AnzeigeTafel(){
 printf("Kategorie      : Wertung :Spieler\n");
-printf("Einser         : Augen(1): %i\n", Werte[aktSpieler-1][0]);
-printf("Zweier         : Augen(2): %i\n", Werte[aktSpieler-1][1]);
-printf("Dreier         : Augen(3): %i\n", Werte[aktSpieler-1][2]);
-printf("Vierer         : Augen(4): %i\n", Werte[aktSpieler-1][3]);
-printf("Fuenfer        : Augen(5): %i\n", Werte[aktSpieler-1][4]);
-printf("Sechser        : Augen(6): %i\n", Werte[aktSpieler-1][5]);
-printf("Dreierpasch    :  Summe  : %i\n", Werte[aktSpieler-1][6]);
-printf("Viererpasch    :  Summe  : %i\n", Werte[aktSpieler-1][7]);
-printf("Full House     :    25   : %i\n", Werte[aktSpieler-1][8]);
-printf("Kleine Strasse :    30   : %i\n", Werte[aktSpieler-1][9]);
-printf("Grosse Strasse :    40   : %i\n", Werte[aktSpieler-1][10]);
-printf("Kniffel        :    50   : %i\n", Werte[aktSpieler-1][11]);
-printf("Chance         :  Summe  : %i\n", Werte[aktSpieler-1][12]);
+printf("Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
+printf("Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
+printf("Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
+printf("Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
+printf("Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
+printf("Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
+printf("Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
+printf("Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
+printf("Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
+printf("Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
+printf("Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
+printf("Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
+printf("Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 }
 
 void SpielerAnDerReihe(){
@@ -72,7 +72,7 @@ void init() {
     }
     //Initalize Table
     Werte =(int **) calloc(13,sizeof(int *));
-    for(int i=0;i<anzSpieler;i++) Werte[i]=(int *) calloc(anzSpieler,sizeof(int));
+    for(int i=0;i<13;i++) Werte[i]=(int *) calloc(anzSpieler,sizeof(int));
 
 
 }
@@ -126,13 +126,11 @@ int zaehlen(int x){
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
-        if (Wuerfel[i]= x) rueckgabe+=x;
+        if (Wuerfel[i]==x) rueckgabe+=x;
     }
     return rueckgabe;
 }
 int zaehlenalles(){
-
-
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
@@ -157,12 +155,11 @@ return gleiche;
 }
 
 void eingabe(){
-    int itemp;
+    int aktion;
     while (getchar() != '\n')
         continue;
-        scanf(" %i", &itemp);
+        scanf(" %i", &aktion);
     int punkte= 0;
-    int aktion =0; //test
     switch(aktion){
 case 0:
     //streichen
@@ -206,10 +203,10 @@ case 12:
 case 13:
     punkte = zaehlenalles();
     break;
-
-    Werte[anzSpieler-1][aktion-1];
-
-}
+    }
+    printf("%i", punkte);
+    printf("%i", aktion);
+    Werte[aktion-1][anzSpieler-1];
 }
 
 void WuerfelAnzeige(){
