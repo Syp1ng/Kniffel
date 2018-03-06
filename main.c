@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-////hallo
 
 //Globale Variablen
 int anzSpieler;
@@ -10,8 +9,7 @@ int aktSpieler=1;
 int Wuerfel[];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
-
-
+int **Werte;
 
 int main()
 {
@@ -20,13 +18,30 @@ int main()
     SpielerAnDerReihe();
     return 0;
 }
+void AnzeigeTafel(){
+printf("Kategorie      : Wertung :\n");
+printf("Einser         : Augen(1):\n");
+printf("Zweier         : Augen(2):\n");
+printf("Dreier         : Augen(3):\n");
+printf("Vierer         : Augen(4):\n");
+printf("Fuenfer        : Augen(5):\n");
+printf("Dreierpasch    :  Summe  :\n");
+printf("Viererpasch    :  Summe  :\n");
+printf("Full House     :    25   :\n");
+printf("Kleine Strasse :    30   :\n");
+printf("Grosse Strasse :    40   :\n");
+printf("Kniffel        :    50   :\n");
+printf("Chance         :  Summe  :\n");}
 void SpielerAnDerReihe(){
+
+    AnzeigeTafel();
     while(Wurf <=3){
     generate();   // generate a Random number
     WuerfelAnzeige();
-    SelectCube();
+    zaehlengleiche();
+    //SelectCube();
+    Wurf = 5;
     }
-    WuerfelAnzeige();
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
 }
@@ -39,6 +54,7 @@ void init() {
     printf("Anzahl der Spieler: %i\n", anzSpieler);
     char spielername [anzSpieler][30];
 
+
     printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
 
     for (int i = 0; i < anzSpieler; i++) {
@@ -49,6 +65,10 @@ void init() {
     for(int i = 0; i < anzSpieler; i++) {
         printf("Spieler %d = %s\n", i+1, spielername[i]);
     }
+    //Initalize Table
+    Werte =(int **) malloc(13*sizeof(int *));
+    for(int i=0;i<anzSpieler;i++) Werte[i]=(int *) malloc(anzSpieler*sizeof(int));
+
 
 }
 // the random function
@@ -97,8 +117,96 @@ void SelectCube(){
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
 }
 
+int zaehlen(int x){
+    int rueckgabe = 0;
+    for(int i = 0; i<5;i++)
+    {
+        if (Wuerfel[i]= x) rueckgabe+=x;
+    }
+    return rueckgabe;
+}
+int zaehlenalles(){
+
+
+    int rueckgabe = 0;
+    for(int i = 0; i<5;i++)
+    {
+        rueckgabe+=Wuerfel[i];
+    }
+    return rueckgabe;
+}
+int zaehlengleiche(){
+int gleiche = 0, tempgleiche = 0;
+
+for(int i = 1; i<=6;i++){
+
+    for(int j = 0;j<5;j++){
+
+        if (Wuerfel[j]== i) tempgleiche++;
+    }
+    if (tempgleiche >gleiche) gleiche= tempgleiche;
+    tempgleiche=0;
+
+}
+return gleiche;
+}
+
+void eingabe(){
+    int punkte= 0;
+    int aktion =0; //test
+    switch(aktion){
+case 0:
+    //streichen
+    break;
+case 1:
+    if (zaehlen(1)>0)punkte = zaehlen(1);
+    break;
+case 2:
+    if (zaehlen(2)>0)punkte = zaehlen(2);
+    break;
+case 3:
+    if (zaehlen(3)>0)punkte = zaehlen(3);
+    break;
+case 4:
+    if (zaehlen(4)>0)punkte = zaehlen(4);
+    break;
+case 5:
+    if (zaehlen(5)>0)punkte = zaehlen(5);
+    break;
+case 6:
+    if (zaehlen(6)>0)punkte = zaehlen(6);
+    break;
+case 7:
+    if (zaehlengleiche()>=3) punkte = zaehlenalles();
+    break;
+case 8:
+    if (zaehlengleiche()>=4) punkte = zaehlenalles();
+    break;
+case 9:
+    if (zaehlen(2)>0)punkte = zaehlen(2);
+    break;
+case 10:
+    if (zaehlen(3)>0)punkte = zaehlen(3);
+    break;
+case 11:
+    if (zaehlen(4)>0)punkte = zaehlen(4);
+    break;
+case 12:
+    if (Wuerfel[0]==Wuerfel[1]&&Wuerfel[0]==Wuerfel[2]&&Wuerfel[0]==Wuerfel[3]&&Wuerfel[0]==Wuerfel[4]&&Wuerfel[0]==Wuerfel[5]) punkte = zaehlenalles();
+    break;
+case 13:
+    punkte = zaehlenalles();
+    break;
+default:
+    break;
+
+    Werte[aktion][anzSpieler-1];
+
+}
+}
+
 void WuerfelAnzeige(){
-   for(int i = 0;i<5; i++){
+for(int i = 0;i<5; i++){
     switch(Wuerfel[i]){
    case 1:
        printf("  _______   \n");
