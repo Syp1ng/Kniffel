@@ -19,27 +19,32 @@ int main()
     return 0;
 }
 void AnzeigeTafel(){
-printf("Kategorie      : Wertung :\n");
-printf("Einser         : Augen(1):\n");
-printf("Zweier         : Augen(2):\n");
-printf("Dreier         : Augen(3):\n");
-printf("Vierer         : Augen(4):\n");
-printf("Fuenfer        : Augen(5):\n");
-printf("Dreierpasch    :  Summe  :\n");
-printf("Viererpasch    :  Summe  :\n");
-printf("Full House     :    25   :\n");
-printf("Kleine Strasse :    30   :\n");
-printf("Grosse Strasse :    40   :\n");
-printf("Kniffel        :    50   :\n");
-printf("Chance         :  Summe  :\n");}
+printf("Kategorie      : Wertung :Spieler\n");
+printf("Einser         : Augen(1): %i\n", Werte[aktSpieler-1][0]);
+printf("Zweier         : Augen(2): %i\n", Werte[aktSpieler-1][1]);
+printf("Dreier         : Augen(3): %i\n", Werte[aktSpieler-1][2]);
+printf("Vierer         : Augen(4): %i\n", Werte[aktSpieler-1][3]);
+printf("Fuenfer        : Augen(5): %i\n", Werte[aktSpieler-1][4]);
+printf("Sechser        : Augen(6): %i\n", Werte[aktSpieler-1][5]);
+printf("Dreierpasch    :  Summe  : %i\n", Werte[aktSpieler-1][6]);
+printf("Viererpasch    :  Summe  : %i\n", Werte[aktSpieler-1][7]);
+printf("Full House     :    25   : %i\n", Werte[aktSpieler-1][8]);
+printf("Kleine Strasse :    30   : %i\n", Werte[aktSpieler-1][9]);
+printf("Grosse Strasse :    40   : %i\n", Werte[aktSpieler-1][10]);
+printf("Kniffel        :    50   : %i\n", Werte[aktSpieler-1][11]);
+printf("Chance         :  Summe  : %i\n", Werte[aktSpieler-1][12]);
+}
+
 void SpielerAnDerReihe(){
 
-    AnzeigeTafel();
+
     while(Wurf <=3){
+
+    AnzeigeTafel();
     generate();   // generate a Random number
     WuerfelAnzeige();
-    zaehlengleiche();
-    //SelectCube();
+    eingabe();
+    AnzeigeTafel();
     Wurf = 5;
     }
     aktSpieler++;
@@ -66,8 +71,8 @@ void init() {
         printf("Spieler %d = %s\n", i+1, spielername[i]);
     }
     //Initalize Table
-    Werte =(int **) malloc(13*sizeof(int *));
-    for(int i=0;i<anzSpieler;i++) Werte[i]=(int *) malloc(anzSpieler*sizeof(int));
+    Werte =(int **) calloc(13,sizeof(int *));
+    for(int i=0;i<anzSpieler;i++) Werte[i]=(int *) calloc(anzSpieler,sizeof(int));
 
 
 }
@@ -152,6 +157,10 @@ return gleiche;
 }
 
 void eingabe(){
+    int itemp;
+    while (getchar() != '\n')
+        continue;
+        scanf(" %i", &itemp);
     int punkte= 0;
     int aktion =0; //test
     switch(aktion){
@@ -197,10 +206,8 @@ case 12:
 case 13:
     punkte = zaehlenalles();
     break;
-default:
-    break;
 
-    Werte[aktion][anzSpieler-1];
+    Werte[anzSpieler-1][aktion-1];
 
 }
 }
