@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-////hallo
 
 //Globale Variablen
 int anzSpieler;
@@ -11,6 +10,8 @@ int Wuerfel[];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 int **Werte;
+
+
 
 
 int main()
@@ -40,9 +41,10 @@ void SpielerAnDerReihe(){
     while(Wurf <=3){
     generate();   // generate a Random number
     WuerfelAnzeige();
-    SelectCube();
+    zaehlengleiche();
+    //SelectCube();
+    Wurf = 5;
     }
-    WuerfelAnzeige();
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
 }
@@ -127,12 +129,29 @@ int zaehlen(int x){
     return rueckgabe;
 }
 int zaehlenalles(){
+
+
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
         rueckgabe+=Wuerfel[i];
     }
     return rueckgabe;
+}
+int zaehlengleiche(){
+int gleiche = 0, tempgleiche = 0;
+
+for(int i = 1; i<=6;i++){
+
+    for(int j = 0;j<5;j++){
+
+        if (Wuerfel[j]== i) tempgleiche++;
+    }
+    if (tempgleiche >gleiche) gleiche= tempgleiche;
+    tempgleiche=0;
+
+}
+return gleiche;
 }
 
 void eingabe(){
