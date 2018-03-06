@@ -11,9 +11,6 @@ int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 int **Werte;
 
-
-
-
 int main()
 {
     //Program start
@@ -180,10 +177,10 @@ case 6:
     if (zaehlen(6)>0)punkte = zaehlen(6);
     break;
 case 7:
-    if (zaehlen(1)>0)punkte = zaehlen(1);
+    if (zaehlengleiche()>=3) punkte = zaehlenalles();
     break;
 case 8:
-    if (zaehlen(1)>0)punkte = zaehlen(1);
+    if (zaehlengleiche()>=4) punkte = zaehlenalles();
     break;
 case 9:
     if (zaehlen(2)>0)punkte = zaehlen(2);
