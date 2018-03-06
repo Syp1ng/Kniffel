@@ -37,16 +37,10 @@ printf("Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 
 void SpielerAnDerReihe(){
 
-
-    while(Wurf <=3){
-
     AnzeigeTafel();
     generate();   // generate a Random number
-    WuerfelAnzeige();
-    eingabe();
     AnzeigeTafel();
-    Wurf = 5;
-    }
+    //eingabe();
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
 }
@@ -91,6 +85,7 @@ void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsTo
 void generate(){
     srand(time(NULL));
     RandomNumberGenerator(1,7,(5-WuerfelMitgenommen));   // generate a Random number
+    WuerfelAnzeige();
 }
 
 void SelectCube(){
@@ -204,9 +199,8 @@ case 13:
     punkte = zaehlenalles();
     break;
     }
-    printf("%i", punkte);
-    printf("%i", aktion);
-    Werte[aktion-1][anzSpieler-1];
+    AnzeigeTafel();
+   // Werte[aktion-1][aktSpieler-1] = punkte;
 }
 
 void WuerfelAnzeige(){
