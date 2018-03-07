@@ -18,7 +18,8 @@ int main()
     SpielerAnDerReihe();
     return 0;
 }
-void AnzeigeTafel(){
+
+void AnzeigeTafel(){ //Shows the scoretable
 printf("Kategorie      : Wertung :Spieler\n");
 printf("Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
 printf("Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
@@ -35,7 +36,7 @@ printf("Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
 printf("Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 }
 
-void SpielerAnDerReihe(){
+void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
 
     AnzeigeTafel();
     generate();   // generate a Random number
@@ -45,7 +46,7 @@ void SpielerAnDerReihe(){
     if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
 }
 
-void init() {
+void init() { //initiallize array, player names
     printf("Geben Sie die Anzahl der Spieler ein: ");
 
     scanf("%i", &anzSpieler);
@@ -68,27 +69,25 @@ void init() {
     Werte =(int **) calloc(13,sizeof(int *));
     for(int i=0;i<13;i++) Werte[i]=(int *) calloc(anzSpieler,sizeof(int));
 
+}
 
+void generate(){//random number
+    srand(time(NULL));
+    RandomNumberGenerator(1,7,(5-WuerfelMitgenommen));   // generate a Random number
+    WuerfelAnzeige();
 }
 // the random function
-void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsToGenerate){
+void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsToGenerate){ //generates random number
     int nRandomNumber = 0;
     for (int i = 0; i < nNumOfNumsToGenerate; i++)
     {
         nRandomNumber = rand()%(nMax-nMin) + nMin;
         printf("%d ", nRandomNumber);
         Wuerfel[i+WuerfelMitgenommen]= nRandomNumber;
-
     }
 }
 
-void generate(){
-    srand(time(NULL));
-    RandomNumberGenerator(1,7,(5-WuerfelMitgenommen));   // generate a Random number
-    WuerfelAnzeige();
-}
-
-void SelectCube(){
+void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     WuerfelMitgenommen = 0;
     for(int i =1; i<= 5; i++){
@@ -117,7 +116,7 @@ void SelectCube(){
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
 }
 
-int zaehlen(int x){
+int zaehlen(int x){ //summ all the x-cubes
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
@@ -125,7 +124,7 @@ int zaehlen(int x){
     }
     return rueckgabe;
 }
-int zaehlenalles(){
+int zaehlenalles(){ //chekcs the sum of all cubes
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
@@ -133,7 +132,7 @@ int zaehlenalles(){
     }
     return rueckgabe;
 }
-int zaehlengleiche(){
+int zaehlengleiche(){ //chekcs how many times the most number is there
 int gleiche = 0, tempgleiche = 0;
 
 for(int i = 1; i<=6;i++){
@@ -149,7 +148,7 @@ for(int i = 1; i<=6;i++){
 return gleiche;
 }
 
-void eingabe(){
+void eingabe(){ //here the user is able to tell the programm, where he writes something down
     int aktion;
     while (getchar() != '\n')
         continue;
@@ -184,13 +183,18 @@ case 8:
     if (zaehlengleiche()>=4) punkte = zaehlenalles();
     break;
 case 9:
-    if (zaehlen(2)>0)punkte = zaehlen(2);
+    if (zaehlengleiche()>3/*            */)punkte = zaehlen(2);
     break;
 case 10:
-    if (zaehlen(3)>0)punkte = zaehlen(3);
+    if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1)||
+        (zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1)||
+        (zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1&&zaehlen(6)>=1))
+        punkte=30;
     break;
 case 11:
-    if (zaehlen(4)>0)punkte = zaehlen(4);
+    if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1)||
+        (zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1&&zaehlen(6)>=1)
+        )punkte = 40;
     break;
 case 12:
     if (Wuerfel[0]==Wuerfel[1]&&Wuerfel[0]==Wuerfel[2]&&Wuerfel[0]==Wuerfel[3]&&Wuerfel[0]==Wuerfel[4]&&Wuerfel[0]==Wuerfel[5]) punkte = zaehlenalles();
@@ -203,7 +207,7 @@ case 13:
    // Werte[aktion-1][aktSpieler-1] = punkte;
 }
 
-void WuerfelAnzeige(){
+void WuerfelAnzeige(){ //Shows the number graphicaly
 for(int i = 0;i<5; i++){
     switch(Wuerfel[i]){
    case 1:
@@ -263,4 +267,17 @@ for(int i = 0;i<5; i++){
     default: break;
    }
    }
+}
+
+void GameOver(){ // Function 4 gameover, to set winner, display winner
+    for(int i = 0; i<anzSpieler;i++){
+        int ergebnis = 0;
+        for(int j = 0; j<13;j++){
+            ergebnis += Werte[j][i];
+        }
+        Werte[0][i] = ergebnis;
+    }
+
+    // Gewinner ausgeben;
+
 }
