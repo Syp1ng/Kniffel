@@ -9,3 +9,8 @@ Kniffel.depend
 *.depend
 Kniffel.depend
 Kniffel.depend
+*.iml
+*.xml
+cmake-build-debug/CMakeFiles/clion-log.txt
+Kniffel.depend
+Kniffel.depend

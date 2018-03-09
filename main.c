@@ -10,7 +10,8 @@ int Wuerfel[];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 int **Werte;
-
+//bool fertig = false;
+char **name;
 int main()
 {
     //Program start
@@ -37,13 +38,23 @@ printf("Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
-
+/////////////Test
     AnzeigeTafel();
     generate();   // generate a Random number
-    AnzeigeTafel();
+
+    printf("%s\n", name[0]);
+    printf("%s\n", name[1]);
+    //AnzeigeTafel();
+
     //eingabe();
+    /////////////////////////////// Productiv
+    /*while(wurf<3|| fertig!=false){
+    }
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
+    fertig = false;
+    */
+
 }
 
 void init() { //initiallize array, player names
@@ -55,15 +66,21 @@ void init() { //initiallize array, player names
     char spielername [anzSpieler][30];
 
 
+    name = malloc(anzSpieler * sizeof(char*));
+
+    for(int i = 0; i < anzSpieler; i++) {
+    name[i] = malloc((12 + 1) * sizeof(char));}
     printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
 
     for (int i = 0; i < anzSpieler; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
         scanf("%s", &spielername[i]);
+        strcpy(name[i], spielername[i]);
     }
 
     for(int i = 0; i < anzSpieler; i++) {
         printf("Spieler %d = %s\n", i+1, spielername[i]);
+
     }
     //Initalize Table
     Werte =(int **) calloc(13,sizeof(int *));
@@ -205,6 +222,7 @@ case 13:
     }
     AnzeigeTafel();
    // Werte[aktion-1][aktSpieler-1] = punkte;
+   //fertig=true;
 }
 
 void WuerfelAnzeige(){ //Shows the number graphicaly
@@ -277,7 +295,6 @@ void GameOver(){ // Function 4 gameover, to set winner, display winner
         }
         Werte[0][i] = ergebnis;
     }
-
-    // Gewinner ausgeben;
+    // Gewinner ausgeben in geordneter Reihenfolge;
 
 }
