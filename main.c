@@ -7,7 +7,7 @@
 //Globale Variablen
 int anzSpieler;
 int aktSpieler=1;
-int Wuerfel[];
+int Wuerfel[5];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 int **Werte;
@@ -16,7 +16,7 @@ char **name;
 int main()
 {
     //Program start
-    FarbeAendern();
+    //FarbeAendern();
     printf("hello");
     init();
     SpielerAnDerReihe();
@@ -112,9 +112,9 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
 /////////////Test
     AnzeigeTafel();
     generate();   // generate a Random number
-
-    printf("%s\n", name[0]);
-    printf("%s\n", name[1]);
+    AnzeigeTafel();
+    eingabe();
+    AnzeigeTafel();
     //AnzeigeTafel();
 
     //eingabe();
@@ -154,8 +154,13 @@ void init() { //initiallize array, player names
 
     }
     //Initalize Table
-    Werte =(int **) calloc(13,sizeof(int *));
-    for(int i=0;i<13;i++) Werte[i]=(int *) calloc(anzSpieler,sizeof(int));
+    Werte =(int **) malloc(13*sizeof(int *));
+    for(int i=0;i<13;i++) Werte[i]=(int *) malloc(anzSpieler*sizeof(int));
+    for(int i = 0;i<13;i++){ //set to 0
+        for(int j = 0; j<anzSpieler; j++){
+            Werte[i][j] =0;
+        }
+    }
 
 }
 
@@ -169,6 +174,9 @@ void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsTo
     int nRandomNumber = 0;
     for (int i = 0; i < nNumOfNumsToGenerate; i++)
     {
+        /*printf("%d\n", &Werte);
+        printf("%d\n", &**Werte);
+        printf("%d\n", &Wuerfel);*/
         nRandomNumber = rand()%(nMax-nMin) + nMin;
         printf("%d ", nRandomNumber);
         Wuerfel[i+WuerfelMitgenommen]= nRandomNumber;
@@ -271,7 +279,7 @@ case 8:
     if (zaehlengleiche()>=4) punkte = zaehlenalles();
     break;
 case 9:
-    if (zaehlengleiche()>3/*            */)punkte = zaehlen(2);
+    if (zaehlengleiche()=3/*            */)punkte = zaehlen(2);
     break;
 case 10:
     if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1)||
@@ -292,7 +300,7 @@ case 13:
     break;
     }
     AnzeigeTafel();
-   // Werte[aktion-1][aktSpieler-1] = punkte;
+   Werte[aktion-1][aktSpieler-1] = punkte;
    //fertig=true;
 }
 
