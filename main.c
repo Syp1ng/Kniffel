@@ -4,6 +4,11 @@
 #include <string.h>
 #include <conio.h>
 #include <stdbool.h>
+////TODO
+//////////Bug Würfel
+//////////Abfrage/EIntragung nicht doppelt
+//////////Fehlerüberprüfung Eingabe
+
 
 //Globale Variablen
 int anzSpieler;
@@ -19,7 +24,7 @@ int main()
     //Program start
     //FarbeAendern();
     init();
-    Fuellen();
+    //Fuellen();
     SpielerAnDerReihe();
     return 0;
 }
@@ -91,31 +96,12 @@ default:
 }
 }
 
-void Fuellen(){
-Werte[0][0]=2;
-Werte[1][0]=3;
-Werte[2][0]=4;
-Werte[3][0]=5;
-Werte[4][0]=6;
-Werte[5][0]=7;
-Werte[6][0]=2;
-Werte[7][0]=3;
-Werte[8][0]=4;
-Werte[9][0]=5;
-Werte[10][0]=6;
-Werte[11][0]=7;
-Werte[0][1]=2;
-Werte[1][1]=3;
-Werte[2][1]=4;
-Werte[3][1]=5;
-Werte[4][1]=3;
-Werte[5][1]=7;
-Werte[6][1]=2;
-Werte[7][1]=20;
-Werte[8][1]=4;
-Werte[9][1]=5;
-Werte[10][1]=6;
-Werte[11][1]=7;
+void Fuellen(){ //test function
+/*for(int i = 0;i<5; i++){
+    for(int j = 0; j<12; j++){
+        Werte[j][i]=i*5+1;
+    }
+}*/
 }
 void AnzeigeTafel(){ //Shows the scoretable
 printf("   Kategorie      : Wertung :Spieler\n");
@@ -170,7 +156,6 @@ return 1;
 
 void init() { //initiallize array, player names
     printf("Geben Sie die Anzahl der Spieler ein: ");
-
     scanf("%i", &anzSpieler);
 
     printf("Anzahl der Spieler: %i\n", anzSpieler);
@@ -207,6 +192,11 @@ void init() { //initiallize array, player names
 void generate(){//random number
     srand(time(NULL));
     RandomNumberGenerator(5-WuerfelMitgenommen);   // generate a Random number
+    Wuerfel[0]=2;
+    Wuerfel[1]=2;
+    Wuerfel[2]=5;
+    Wuerfel[3]=5;
+    Wuerfel[4]=5;
     WuerfelAnzeige();
 }
 // the random function
@@ -290,6 +280,24 @@ for(int i = 1; i<=6;i++){
 }
 return gleiche;
 }
+int FullHouseCheck(){
+    int gleiche = 0, tempgleiche = 0, tempgleiche2=0;
+
+for(int i = 1; i<=6;i++){//Zahlen
+
+    for(int j = 0;j<5;j++){//Würfel
+
+        if (Wuerfel[j]== i) tempgleiche++;
+    }
+    if (tempgleiche >gleiche){tempgleiche2= gleiche; gleiche = tempgleiche;}
+    else if (tempgleiche>tempgleiche2)tempgleiche2= tempgleiche;
+    tempgleiche=0;
+//////////////////////////////////////////////////////////////////////////////
+}
+if(gleiche+tempgleiche2==5)return 1;
+return 0;
+}
+
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
     printf("Zahl eingeben, 0 für Streichen.\n");
@@ -340,7 +348,7 @@ case 8:
     if (zaehlengleiche()>=4) punkte = zaehlenalles();
     break;
 case 9:
-    if (zaehlengleiche()==3/*            */)punkte = zaehlen(2);
+    if (FullHouseCheck()==1 )punkte = 25;
     break;
 case 10:
     if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1)||
@@ -497,6 +505,7 @@ for(int i = 0;i<5; i++){
 }
 
 void GameOver(){ // Function 4 gameover, to set winner, display winner
+    printf("\n\n\n");
 for(int i = 1;i<=anzSpieler;i++)
     {
         Werte[0][i-1] = gesamt(i); //save the score of each player in index 0
