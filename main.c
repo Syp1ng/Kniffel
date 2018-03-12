@@ -118,7 +118,7 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     while(Wurf<3 && fertig== false){
             AnzeigeTafel();
             generate();
-            SelectCube();
+            if(Wurf<2)SelectCube();
             Wurf++;
           }
     if(fertig==false)eingabe();
