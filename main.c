@@ -33,7 +33,10 @@ printf("5 = Lila      D = Helllila\n");
 printf("6 = Gelb      E = Hellgelb\n");
 printf("7 = Hellgrau  F = Weiss\n");
 printf("Bitte Farbe eingeben\n");
-        scanf("%c", &color);
+
+scanf("%c", &color);
+system("color %c0",color);
+/*
     switch(color){
 case '0':
     system("color 00");
@@ -86,7 +89,7 @@ case 'F':
 default:
     system("color 0F");
     break;
-}
+}*/
 }
 
 
