@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include <conio.h>
+#include <stdbool.h>
 
 //Globale Variablen
 int anzSpieler;
@@ -11,13 +12,12 @@ int Wuerfel[5];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 int **Werte;
-//bool fertig = false;
+bool fertig = false;
 char **name;
 int main()
 {
     //Program start
     //FarbeAendern();
-    printf("hello");
     init();
     SpielerAnDerReihe();
     return 0;
@@ -109,22 +109,19 @@ printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
-/////////////Test
-    AnzeigeTafel();
-    generate();   // generate a Random number
-    AnzeigeTafel();
-    eingabe();
-    AnzeigeTafel();
-    //AnzeigeTafel();
-
-    //eingabe();
-    /////////////////////////////// Productiv
-    /*while(wurf<3|| fertig!=false){
-    }
+    printf("\nSpieler %s ist an der Reihe!\n\n", name[aktSpieler-1]);
+    while(Wurf<3 && fertig== false){
+            AnzeigeTafel();
+            generate();
+            SelectCube();
+            Wurf++;
+          }
     aktSpieler++;
-    if(aktSpieler>anzSpieler)aktSpieler-anzSpieler;
+    if(aktSpieler>anzSpieler)aktSpieler=1;
     fertig = false;
-    */
+    //Wenn alles ausgefüllt
+    //if(){}else GameOver
+    SpielerAnDerReihe();
 
 }
 
@@ -166,19 +163,16 @@ void init() { //initiallize array, player names
 
 void generate(){//random number
     srand(time(NULL));
-    RandomNumberGenerator(1,7,(5-WuerfelMitgenommen));   // generate a Random number
+    RandomNumberGenerator(5-WuerfelMitgenommen);   // generate a Random number
     WuerfelAnzeige();
 }
 // the random function
-void RandomNumberGenerator(const int nMin,const int nMax,const int  nNumOfNumsToGenerate){ //generates random number
+void RandomNumberGenerator(int nNumOfNumsToGenerate){ //generates random number
     int nRandomNumber = 0;
     for (int i = 0; i < nNumOfNumsToGenerate; i++)
     {
-        /*printf("%d\n", &Werte);
-        printf("%d\n", &**Werte);
-        printf("%d\n", &Wuerfel);*/
-        nRandomNumber = rand()%(nMax-nMin) + nMin;
-        printf("%d ", nRandomNumber);
+        nRandomNumber = rand()%(6) + 1;
+        printf("%d ", nRandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS
         Wuerfel[i+WuerfelMitgenommen]= nRandomNumber;
     }
 }
@@ -301,7 +295,7 @@ case 13:
     }
     AnzeigeTafel();
    Werte[aktion-1][aktSpieler-1] = punkte;
-   //fertig=true;
+   fertig=true;
 }
 
 void WuerfelAnzeige(){ //Shows the number graphicaly
@@ -312,54 +306,54 @@ for(int i = 0;i<5; i++){
        printf(" /______/|  \n");
        printf("|       ||  \n");
        printf("|       ||  \n");
-       printf("|   #   ||  \n");
+       printf("|   O   ||  \n");
        printf("|       ||  \n");
        printf("|_______|/  \n");
        break;
     case 2:
        printf("  _______   \n");
        printf(" /______/|  \n");
-       printf("| #     ||  \n");
+       printf("| O     ||  \n");
        printf("|       ||  \n");
        printf("|       ||  \n");
        printf("|       ||  \n");
-       printf("|_____#_|/  \n");
+       printf("|_____O_|/  \n");
        break;
     case 3:
        printf("  _______   \n");
        printf(" /______/|  \n");
-       printf("| #     ||  \n");
+       printf("| O     ||  \n");
        printf("|       ||  \n");
-       printf("|   #   ||  \n");
+       printf("|   O   ||  \n");
        printf("|       ||  \n");
-       printf("|_____#_|/  \n");
+       printf("|_____O_|/  \n");
        break;
     case 4:
        printf("  _______   \n");
        printf(" /______/|  \n");
-       printf("| #   # ||  \n");
+       printf("| O   O ||  \n");
        printf("|       ||  \n");
        printf("|       ||  \n");
        printf("|       ||  \n");
-       printf("| #___#_|/  \n");
+       printf("|_O___O_|/  \n");
        break;
     case 5:
        printf("  _______   \n");
        printf(" /______/|  \n");
-       printf("| #   # ||  \n");
+       printf("| O   O ||  \n");
        printf("|       ||  \n");
-       printf("|   #   ||  \n");
+       printf("|   O   ||  \n");
        printf("|       ||  \n");
-       printf("| #___#_|/  \n");
+       printf("|_O___O_|/  \n");
        break;
     case 6:
        printf("  _______   \n");
        printf(" /______/|  \n");
-       printf("| #   # ||  \n");
+       printf("| O   O ||  \n");
        printf("|       ||  \n");
-       printf("| #   # ||  \n");
+       printf("| O   O ||  \n");
        printf("|       ||  \n");
-       printf("|_#___#_|/  \n");
+       printf("|_O___O_|/  \n");
        break;
     default: break;
    }
