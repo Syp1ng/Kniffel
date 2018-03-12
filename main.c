@@ -92,20 +92,20 @@ default:
 
 
 void AnzeigeTafel(){ //Shows the scoretable
-printf("Kategorie      : Wertung :Spieler\n");
-printf("Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
-printf("Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
-printf("Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
-printf("Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
-printf("Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
-printf("Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
-printf("Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
-printf("Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
-printf("Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
-printf("Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
-printf("Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
-printf("Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
-printf("Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
+printf("   Kategorie      : Wertung :Spieler\n");
+printf("1  Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
+printf("2  Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
+printf("3  Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
+printf("4  Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
+printf("5  Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
+printf("6  Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
+printf("7  Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
+printf("8  Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
+printf("9  Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
+printf("10 Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
+printf("11 Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
+printf("12 Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
+printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
@@ -239,7 +239,7 @@ for(int i = 1; i<=6;i++){
     }
     if (tempgleiche >gleiche) gleiche= tempgleiche;
     tempgleiche=0;
-
+//////////////////////////////////////////////////////////////////////////////
 }
 return gleiche;
 }
@@ -279,7 +279,7 @@ case 8:
     if (zaehlengleiche()>=4) punkte = zaehlenalles();
     break;
 case 9:
-    if (zaehlengleiche()=3/*            */)punkte = zaehlen(2);
+    if (zaehlengleiche()==3/*            */)punkte = zaehlen(2);
     break;
 case 10:
     if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1)||
