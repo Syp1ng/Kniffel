@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1520837633 source:c:\users\fsc\documents\c projects\kniffel\main.c
+1520841582 source:c:\users\fsc\documents\c projects\kniffel\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
+	<conio.h>
 
 1520262284 source:c:\users\awoe\documents\github\kniffel\main.c
 	<stdio.h>

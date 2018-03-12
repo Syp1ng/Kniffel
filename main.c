@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <conio.h>
 
 //Globale Variablen
 int anzSpieler;
@@ -15,10 +16,79 @@ char **name;
 int main()
 {
     //Program start
+FarbeAendern();
+    printf("hello");
     init();
     SpielerAnDerReihe();
     return 0;
 }
+void FarbeAendern(){
+    char color;
+printf("0 = Schwarz       8 = Grau/n");
+printf("1 = Blau        9 = Hellblau/n");
+printf("2 = Grün       A = Hellgrün/n");
+printf("3 = Türkis        B = Helltürkis/n");
+printf("4 = Rot         C = Hellrot/n");
+printf("5 = Lila      D = Helllila/n");
+printf("6 = Gelb      E = Hellgelb/n");
+printf("7 = Hellgrau       F = Weiß/n");
+printf("Bitte Farbe eingeben\n");
+        scanf("%c", &color);
+    switch(color){
+case '0':
+    system("color 00");
+    break;
+case '1':
+    system("color 01");
+    break;
+case '2':
+    system("color 02");
+    break;
+case '3':
+    system("color 03");
+    break;
+case '4':
+    system("color 04");
+    break;
+case '5':
+    system("color 05");
+    break;
+case '6':
+    system("color 06");
+    break;
+case '7':
+    system("color 07");
+    break;
+case '8':
+    system("color 08");
+    break;
+case '9':
+    system("color 09");
+    break;
+case 'A':
+    system("color 0A");
+    break;
+case 'B':
+    system("color 0B");
+    break;
+case 'C':
+    system("color 0C");
+    break;
+case 'D':
+    system("color 0D");
+    break;
+case 'E':
+    system("color 0E");
+    break;
+case 'F':
+    system("color 0F");
+    break;
+default:
+    system("color 0F");
+    break;
+}
+}
+
 
 void AnzeigeTafel(){ //Shows the scoretable
 printf("Kategorie      : Wertung :Spieler\n");
@@ -299,9 +369,9 @@ void GameOver(){ // Function 4 gameover, to set winner, display winner
 
 
 
-    for(int i =0; i<anzSpieler;i++){
+    /*for(int i =0; i<anzSpieler;i++){
             printf("Platz %i: %s \n", (i+1);
     }
-    printf("Ende");
+    printf("Ende");*/
 
 }
