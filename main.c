@@ -114,6 +114,7 @@ printf("   Gesamt         :         : %i\n", gesamt(aktSpieler));
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
+    WuerfelMitgenommen=0;
     printf("\nSpieler %s ist an der Reihe!\n\n", name[aktSpieler-1]);
     while(Wurf<3 && fertig== false){
             AnzeigeTafel();
