@@ -100,8 +100,8 @@ printf("4  Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
 printf("5  Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
 printf("6  Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
 printf("   Summe oben     :         : %i\n", SummeOben(aktSpieler));
-printf("   Bonus (bei 63P):   35    : %i\n", Bonus());
-printf("   Oberer Teil    :         : %i\n", SummeOben(aktSpieler)+Bonus());
+printf("   Bonus (bei 63P):   35    : %i\n", Bonus(aktSpieler));
+printf("   Oberer Teil    :         : %i\n", SummeOben(aktSpieler)+Bonus(aktSpieler));
 printf("7  Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
 printf("8  Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
 printf("9  Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
@@ -109,8 +109,8 @@ printf("10 Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
 printf("11 Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
 printf("12 Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
 printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
-printf("   Summe unten    :         : %i\n", SummeUnten(aktSpieler)+Bonus());
-printf("   Gesamt         :         : %i\n", SummeOben(aktSpieler)+SummeUnten(aktSpieler)+Bonus());
+printf("   Summe unten    :         : %i\n", SummeUnten(aktSpieler)+Bonus(aktSpieler));
+printf("   Gesamt         :         : %i\n", gesamt(aktSpieler));
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
@@ -121,6 +121,7 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
             SelectCube();
             Wurf++;
           }
+    if(fertig==false)eingabe();
           printf("Dein Spielstand:\n");
           AnzeigeTafel();
     aktSpieler++;
@@ -471,7 +472,10 @@ for(int i = 0;i<5; i++){
 }
 
 void GameOver(){ // Function 4 gameover, to set winner, display winner
-
+for(int i = 1;i<=anzSpieler;i++)
+    {
+        Werte[0][i-1] = gesamt(i); //save the score of each player in index 0
+    }
 }
 
 int SummeOben(int Spieler){
@@ -488,7 +492,12 @@ for(int i=6;i<13;i++){
 }
     return sum;
 }
-int Bonus(){
-if (SummeOben(aktSpieler)>=63)return 35;
+int Bonus(int Spieler){
+if (SummeOben(Spieler)>=63)return 35;
 return 0;
+}
+
+int gesamt(int Spieler){
+
+return Bonus(Spieler)+SummeOben(Spieler)+SummeUnten(Spieler);
 }
