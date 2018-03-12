@@ -16,7 +16,7 @@ char **name;
 int main()
 {
     //Program start
-FarbeAendern();
+    FarbeAendern();
     printf("hello");
     init();
     SpielerAnDerReihe();
@@ -24,14 +24,14 @@ FarbeAendern();
 }
 void FarbeAendern(){
     char color;
-printf("0 = Schwarz       8 = Grau/n");
-printf("1 = Blau        9 = Hellblau/n");
-printf("2 = Grün       A = Hellgrün/n");
-printf("3 = Türkis        B = Helltürkis/n");
-printf("4 = Rot         C = Hellrot/n");
-printf("5 = Lila      D = Helllila/n");
-printf("6 = Gelb      E = Hellgelb/n");
-printf("7 = Hellgrau       F = Weiß/n");
+printf("0 = Schwarz       8 = Grau\n");
+printf("1 = Blau        9 = Hellblau\n");
+printf("2 = Gruen       A = Hellgruen\n");
+printf("3 = Tuerkis        B = Helltuerkis\n");
+printf("4 = Rot         C = Hellrot\n");
+printf("5 = Lila      D = Helllila\n");
+printf("6 = Gelb      E = Hellgelb\n");
+printf("7 = Hellgrau       F = Weiss\n");
 printf("Bitte Farbe eingeben\n");
         scanf("%c", &color);
     switch(color){
