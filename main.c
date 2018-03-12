@@ -231,6 +231,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
     }
 
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
+    if(WuerfelMitgenommen==5)eingabe();
 }
 
 int zaehlen(int x){ //summ all the x-cubes
