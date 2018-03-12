@@ -1,13 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
-#include <conio.h>
 #include <stdbool.h>
 ////TODO
-//////////Bug Würfel
 //////////Abfrage/EIntragung nicht doppelt
 //////////Fehlerüberprüfung Eingabe
+//////////Nur stdio.h benutzen ???????????????????????????--> dann bool umändern
 
 
 //Globale Variablen
@@ -240,7 +236,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             break;
         }
     }
-    memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
+    memcpy(Wuerfel, tempWuerfel,WuerfelMitgenommen*sizeof(int));
     if(WuerfelMitgenommen==5)eingabe();
 }
 
