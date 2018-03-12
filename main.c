@@ -334,7 +334,6 @@ case 13:
     punkte = zaehlenalles();
     break;
     }
-    AnzeigeTafel();
    Werte[aktion-1][aktSpieler-1] = punkte;
    fertig=true;
 }
