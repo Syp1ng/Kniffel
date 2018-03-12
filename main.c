@@ -214,11 +214,11 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
 
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
-            printf("Wuerfel %i wurde gespeichert!", i);
+            printf("Wuerfel %i wurde gespeichert!\n", i);
             WuerfelMitgenommen++;
         }
         else if(ctemp == 'n'){
-            printf("Wuerfel %i wurde nicht gespeichert!", i);
+            printf("Wuerfel %i wurde nicht gespeichert!\n", i);
         }
         else if(ctemp == 'e'){
             eingabe();
@@ -228,9 +228,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             WuerfelMitgenommen=0;
             break;
         }
-
     }
-
     memccpy(Wuerfel, tempWuerfel,6*sizeof(int));
     if(WuerfelMitgenommen==5)eingabe();
 }
@@ -268,7 +266,7 @@ return gleiche;
 }
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
-    printf("Zahl eingeben, 0 für Streichen.");
+    printf("Zahl eingeben, 0 für Streichen.\n");
     int aktion;
     while (getchar() != '\n')
         continue;
@@ -477,6 +475,18 @@ for(int i = 1;i<=anzSpieler;i++)
     {
         Werte[0][i-1] = gesamt(i); //save the score of each player in index 0
     }
+for(int i = 1;i<=anzSpieler;i++){
+    int maxvalue=0;
+    int maxvaluespieler=0;
+    for(int j = 0;i<anzSpieler;j++)
+    {
+        if (Werte[0][j]>maxvalue) maxvalue=Werte[0][j];
+        maxvaluespieler = j;
+    }
+
+    printf("%i. Platz ist %s mit %i Punkten", i,name[maxvaluespieler],maxvalue);
+    Werte[0][maxvaluespieler]=-100;
+}
 }
 
 int SummeOben(int Spieler){
@@ -497,7 +507,6 @@ int Bonus(int Spieler){
 if (SummeOben(Spieler)>=63)return 35;
 return 0;
 }
-
 int gesamt(int Spieler){
 
 return Bonus(Spieler)+SummeOben(Spieler)+SummeUnten(Spieler);
