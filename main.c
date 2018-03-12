@@ -19,6 +19,7 @@ int main()
     //Program start
     //FarbeAendern();
     init();
+    Fuellen();
     SpielerAnDerReihe();
     return 0;
 }
@@ -90,7 +91,32 @@ default:
 }
 }
 
-
+void Fuellen(){
+Werte[0][0]=2;
+Werte[1][0]=3;
+Werte[2][0]=4;
+Werte[3][0]=5;
+Werte[4][0]=6;
+Werte[5][0]=7;
+Werte[6][0]=2;
+Werte[7][0]=3;
+Werte[8][0]=4;
+Werte[9][0]=5;
+Werte[10][0]=6;
+Werte[11][0]=7;
+Werte[0][1]=2;
+Werte[1][1]=3;
+Werte[2][1]=4;
+Werte[3][1]=5;
+Werte[4][1]=3;
+Werte[5][1]=7;
+Werte[6][1]=2;
+Werte[7][1]=20;
+Werte[8][1]=4;
+Werte[9][1]=5;
+Werte[10][1]=6;
+Werte[11][1]=7;
+}
 void AnzeigeTafel(){ //Shows the scoretable
 printf("   Kategorie      : Wertung :Spieler\n");
 printf("1  Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
@@ -478,10 +504,10 @@ for(int i = 1;i<=anzSpieler;i++)
 for(int i = 1;i<=anzSpieler;i++){
     int maxvalue=0;
     int maxvaluespieler=0;
-    for(int j = 0;i<anzSpieler;j++)
+    for(int j = 0;j<anzSpieler;j++)
     {
-        if (Werte[0][j]>maxvalue) maxvalue=Werte[0][j];
-        maxvaluespieler = j;
+        if (Werte[0][j]>maxvalue) {maxvalue=Werte[0][j];
+        maxvaluespieler = j;}
     }
 
     printf("%i. Platz ist %s mit %i Punkten!\n", i,name[maxvaluespieler],maxvalue);
