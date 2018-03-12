@@ -199,7 +199,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
     WuerfelMitgenommen = 0;
     for(int i =1; i<= 5; i++){
         char ctemp;
-        printf("Moechtest du Wuerfel %d speichern? \n",i); //Gib j--> für Ja, n --> nein, #--> alles neu, e=eintragen
+        printf("%s: Moechtest du Wuerfel %d speichern? \n", name[aktSpieler-1],i); //Gib j--> für Ja, n --> nein, #--> alles neu, e=eintragen
         /*do{
         while (getchar() != '\n')
         continue;
