@@ -484,7 +484,7 @@ for(int i = 1;i<=anzSpieler;i++){
         maxvaluespieler = j;
     }
 
-    printf("%i. Platz ist %s mit %i Punkten", i,name[maxvaluespieler],maxvalue);
+    printf("%i. Platz ist %s mit %i Punkten!\n", i,name[maxvaluespieler],maxvalue);
     Werte[0][maxvaluespieler]=-100;
 }
 }
