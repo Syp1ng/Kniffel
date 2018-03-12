@@ -99,6 +99,9 @@ printf("3  Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
 printf("4  Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
 printf("5  Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
 printf("6  Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
+printf("   Summe oben     :         : %i\n", SummeOben(aktSpieler));
+printf("   Bonus (bei 63P):   35    : %i\n", Bonus());
+printf("   Oberer Teil    :         : %i\n", SummeOben(aktSpieler)+Bonus());
 printf("7  Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
 printf("8  Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
 printf("9  Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
@@ -106,6 +109,8 @@ printf("10 Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
 printf("11 Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
 printf("12 Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
 printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
+printf("   Summe unten    :         : %i\n", SummeUnten(aktSpieler)+Bonus());
+printf("   Gesamt         :         : %i\n", SummeOben(aktSpieler)+SummeUnten(aktSpieler)+Bonus());
 }
 
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
@@ -113,8 +118,7 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     while(Wurf<3 && fertig== false){
             AnzeigeTafel();
             generate();
-            //SelectCube();
-            eingabe();
+            SelectCube();
             Wurf++;
           }
           printf("Dein Spielstand:\n");
@@ -124,9 +128,16 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     fertig = false;
     Wurf =0;
     //Wenn alles ausgefüllt
-    //if(){}else GameOver
-    SpielerAnDerReihe();
+    if(AllesAusgefuellt()==1)GameOver();
+    else{SpielerAnDerReihe();}
+}
 
+int AllesAusgefuellt(){
+for(int i=0;i<13;i++){
+    if(Werte[i][anzSpieler-1]==0)
+    return 0;
+}
+return 1;
 }
 
 void init() { //initiallize array, player names
@@ -194,7 +205,10 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');*/
         while (getchar() != '\n')
         continue;
-        scanf(" %c", &ctemp);
+        /*do{
+            while (getchar() != '\n')
+            continue;*/
+            scanf(" %c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
 
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
@@ -206,6 +220,10 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         }
         else if(ctemp == 'e'){
             eingabe();
+            break;
+        }
+        else if(ctemp == '#'){
+            WuerfelMitgenommen=0;
             break;
         }
 
@@ -247,7 +265,7 @@ return gleiche;
 }
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
-    printf("Zahl eingeben");
+    printf("Zahl eingeben, 0 für Streichen.");
     int aktion;
     while (getchar() != '\n')
         continue;
@@ -255,7 +273,20 @@ void eingabe(){ //here the user is able to tell the programm, where he writes so
     int punkte= 0;
     switch(aktion){
 case 0:
-    //streichen
+    falsch:
+    printf("Welches Feld willst du streichen?");
+    while (getchar() != '\n')
+        continue;
+        int feld;
+        scanf(" %i", &feld);
+    if(Werte[feld-1][aktSpieler-1]==0){
+        aktion=feld;
+        punkte=-1;
+    }
+    else{
+        printf("Kann nicht gestrichen werden\n");
+        goto falsch;
+    }
     break;
 case 1:
     if (zaehlen(1)>0)punkte = zaehlen(1);
@@ -307,7 +338,7 @@ case 13:
    fertig=true;
 }
 
-void WuerfelAnzeige(){ //Shows the number graphicaly
+void WuerfelAnzeige(){
 printf("\n");
 for(int i=0;i<5; i++) printf("  _______   ");
 printf("\n");
@@ -440,20 +471,24 @@ for(int i = 0;i<5; i++){
 }
 
 void GameOver(){ // Function 4 gameover, to set winner, display winner
-    for(int i = 0; i<anzSpieler;i++){
-        int ergebnis = 0;
-        for(int j = 0; j<13;j++){
-            ergebnis += Werte[j][i];
-        }
-        Werte[0][i] = ergebnis;
-    }
-    // Gewinner ausgeben in geordneter Reihenfolge;
 
+}
 
-
-    /*for(int i =0; i<anzSpieler;i++){
-            printf("Platz %i: %s \n", (i+1);
-    }
-    printf("Ende");*/
-
+int SummeOben(int Spieler){
+    int sum = 0;
+for(int i=0;i<6;i++){
+    sum += Werte[i][Spieler-1];
+}
+    return sum;
+}
+int SummeUnten(int Spieler){
+    int sum = 0;
+for(int i=6;i<13;i++){
+    sum += Werte[i][Spieler-1];
+}
+    return sum;
+}
+int Bonus(){
+if (SummeOben(aktSpieler)>=63)return 35;
+return 0;
 }
