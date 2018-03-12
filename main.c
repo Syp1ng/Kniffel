@@ -117,6 +117,8 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
             eingabe();
             Wurf++;
           }
+          printf("Dein Spielstand:\n");
+          AnzeigeTafel();
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler=1;
     fertig = false;
