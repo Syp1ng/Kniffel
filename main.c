@@ -31,13 +31,11 @@ printf("3 = Tuerkis      B = Helltuerkis\n");
 printf("4 = Rot          C = Hellrot\n");
 printf("5 = Lila         D = Helllila\n");
 printf("6 = Gelb         E = Hellgelb\n");
-printf("7 = Hellgrau     F = Weiss\n");// test
+printf("7 = Hellgrau     F = Weiss\n");
 printf("Bitte Farbe eingeben\n");
 
 scanf("%c", &color);
-system("color %c0",color);
-/*
-    switch(color){
+switch(color){
 case '0':
     system("color 00");
     break;
@@ -89,7 +87,7 @@ case 'F':
 default:
     system("color 0F");
     break;
-}*/
+}
 }
 
 
