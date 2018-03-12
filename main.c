@@ -113,7 +113,8 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     while(Wurf<3 && fertig== false){
             AnzeigeTafel();
             generate();
-            SelectCube();
+            //SelectCube();
+            eingabe();
             Wurf++;
           }
     aktSpieler++;
@@ -183,7 +184,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
     WuerfelMitgenommen = 0;
     for(int i =1; i<= 5; i++){
         char ctemp;
-        printf("Moechtest du Wuerfel %d speichern? \n",i); //Gib j--> für Ja, n --> nein, #--> alles neu
+        printf("Moechtest du Wuerfel %d speichern? \n",i); //Gib j--> für Ja, n --> nein, #--> alles neu, e=eintragen
         /*do{
         while (getchar() != '\n')
         continue;
@@ -200,6 +201,10 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         }
         else if(ctemp == 'n'){
             printf("Wuerfel %i wurde nicht gespeichert!", i);
+        }
+        else if(ctemp == 'e'){
+            eingabe();
+            break;
         }
 
     }
@@ -240,6 +245,7 @@ return gleiche;
 }
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
+    printf("Zahl eingeben");
     int aktion;
     while (getchar() != '\n')
         continue;
@@ -336,8 +342,10 @@ for(int i=0;i<5; i++)
         break;
     case 2:
     case 4:
-    case 6:
         printf("|       ||  ");
+        break;
+    case 6:
+        printf("| O   O ||  ");
         break;
     default: break;
     }
