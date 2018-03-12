@@ -31,7 +31,7 @@ printf("3 = Tuerkis   B = Helltuerkis\n");
 printf("4 = Rot       C = Hellrot\n");
 printf("5 = Lila      D = Helllila\n");
 printf("6 = Gelb      E = Hellgelb\n");
-printf("7 = Hellgrau       F = Weiss\n");
+printf("7 = Hellgrau  F = Weiss\n");
 printf("Bitte Farbe eingeben\n");
         scanf("%c", &color);
     switch(color){
