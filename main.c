@@ -293,7 +293,7 @@ case 11:
         )punkte = 40;
     break;
 case 12:
-    if (Wuerfel[0]==Wuerfel[1]&&Wuerfel[0]==Wuerfel[2]&&Wuerfel[0]==Wuerfel[3]&&Wuerfel[0]==Wuerfel[4]&&Wuerfel[0]==Wuerfel[5]) punkte = zaehlenalles();
+    if (zaehlengleiche()== 5) punkte = 50;
     break;
 case 13:
     punkte = zaehlenalles();
