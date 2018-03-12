@@ -492,14 +492,16 @@ for(int i = 1;i<=anzSpieler;i++){
 int SummeOben(int Spieler){
     int sum = 0;
 for(int i=0;i<6;i++){
-    sum += Werte[i][Spieler-1];
+    if(Werte[i][Spieler-1]!=-1){
+    sum += Werte[i][Spieler-1];}
 }
     return sum;
 }
 int SummeUnten(int Spieler){
     int sum = 0;
 for(int i=6;i<13;i++){
-    sum += Werte[i][Spieler-1];
+    if(Werte[i][Spieler-1]!=-1){
+    sum += Werte[i][Spieler-1];}
 }
     return sum;
 }
