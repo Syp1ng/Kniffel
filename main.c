@@ -300,6 +300,72 @@ case 13:
 }
 
 void WuerfelAnzeige(){ //Shows the number graphicaly
+printf("\n");
+for(int i=0;i<5; i++) printf("  _______   ");
+printf("\n");
+for(int i=0;i<5; i++) printf(" /______/|  ");
+printf("\n");
+for(int i=0;i<5; i++)
+{
+    switch(Wuerfel[i]){
+    case 1:
+        printf("|       ||  ");
+        break;
+    case 2:
+    case 3:
+        printf("| O     ||  ");
+        break;
+    case 4:
+    case 5:
+    case 6:
+        printf("| O   O ||  ");
+        break;
+    default: break;
+    }
+}
+printf("\n");
+for(int i=0; i<5;i++) printf("|       ||  ");
+printf("\n");
+for(int i=0;i<5; i++)
+{
+    switch(Wuerfel[i]){
+    case 1:
+    case 3:
+    case 5:
+        printf("|   O   ||  ");
+        break;
+    case 2:
+    case 4:
+    case 6:
+        printf("|       ||  ");
+        break;
+    default: break;
+    }
+}
+printf("\n");
+for(int i=0; i<5;i++) printf("|       ||  ");
+printf("\n");
+for(int i=0;i<5; i++)
+{
+    switch(Wuerfel[i]){
+    case 1:
+        printf("|_______|/  ");
+        break;
+    case 2:
+    case 3:
+        printf("|_____O_|/  ");
+        break;
+    case 4:
+    case 5:
+    case 6:
+        printf("|_O___O_|/  ");
+        break;
+    default: break;
+   }
+}
+printf("\n");
+printf("\n");
+/*Old Version:
 for(int i = 0;i<5; i++){
     switch(Wuerfel[i]){
    case 1:
@@ -359,6 +425,8 @@ for(int i = 0;i<5; i++){
     default: break;
    }
    }
+   */
+
 }
 
 void GameOver(){ // Function 4 gameover, to set winner, display winner
