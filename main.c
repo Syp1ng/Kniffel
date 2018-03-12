@@ -297,4 +297,11 @@ void GameOver(){ // Function 4 gameover, to set winner, display winner
     }
     // Gewinner ausgeben in geordneter Reihenfolge;
 
+
+
+    for(int i =0; i<anzSpieler;i++){
+            printf("Platz %i: %s \n", (i+1);
+    }
+    printf("Ende");
+
 }
