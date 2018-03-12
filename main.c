@@ -192,11 +192,6 @@ void init() { //initiallize array, player names
 void generate(){//random number
     srand(time(NULL));
     RandomNumberGenerator(5-WuerfelMitgenommen);   // generate a Random number
-    Wuerfel[0]=2;
-    Wuerfel[1]=2;
-    Wuerfel[2]=5;
-    Wuerfel[3]=5;
-    Wuerfel[4]=5;
     WuerfelAnzeige();
 }
 // the random function
