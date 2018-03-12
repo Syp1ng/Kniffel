@@ -119,6 +119,7 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler=1;
     fertig = false;
+    Wurf =0;
     //Wenn alles ausgefüllt
     //if(){}else GameOver
     SpielerAnDerReihe();
