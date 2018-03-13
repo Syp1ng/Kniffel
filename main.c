@@ -379,24 +379,45 @@ case 13:
    fertig=true;
 }
 
-void WuerfelAnzeige(){
+void WuerfelAnzeige(){ // display dices graphically
 printf("\n");
-for(int i=0;i<5; i++) printf("  _______   ");
+for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all dices
 printf("\n");
-for(int i=0;i<5; i++) printf(" /______/|  ");
+for(int i=0;i<5; i++) printf(" /______/|  "); // secound line is the same for all dices
 printf("\n");
-for(int i=0;i<5; i++)
+for(int i=0;i<5; i++) // third line is not equal
 {
-    switch(Wuerfel[i]){
+    switch(Wuerfel[i]){         //Adapt third line to the corresponding number
     case 1:
         printf("|       ||  ");
         break;
     case 2:
     case 3:
-        printf("| O     ||  ");
+        printf("| O     ||  "); // Number 2 and 3 have the same third line ( case 2 go to case 3 because no break)
         break;
     case 4:
     case 5:
+    case 6:
+        printf("| O   O ||  "); // Number 4,5,6 have the same third line ( case 4 and 5 go to case 6 because no break)
+        break;
+    default: break;
+    }
+}
+printf("\n");
+for(int i=0; i<5;i++) printf("|       ||  "); // fourth line is the same for all dices
+printf("\n");
+for(int i=0;i<5; i++)   //fifth line is not equal
+{
+    switch(Wuerfel[i]){     //Adapt third line to the corresponding number
+    case 1:
+    case 3:
+    case 5:
+        printf("|   O   ||  ");     // Number 1,3 and 5 have the same fifth line ( case 1 go to case 5 because no break)
+        break;
+    case 2:
+    case 4:
+        printf("|       ||  ");     // Number 2 and 4 have the same fifth line ( case 2 go to case 4 because no break)
+        break;
     case 6:
         printf("| O   O ||  ");
         break;
@@ -404,30 +425,9 @@ for(int i=0;i<5; i++)
     }
 }
 printf("\n");
-for(int i=0; i<5;i++) printf("|       ||  ");
+for(int i=0; i<5;i++) printf("|       ||  ");   // // sixth line is the same for all dices
 printf("\n");
-for(int i=0;i<5; i++)
-{
-    switch(Wuerfel[i]){
-    case 1:
-    case 3:
-    case 5:
-        printf("|   O   ||  ");
-        break;
-    case 2:
-    case 4:
-        printf("|       ||  ");
-        break;
-    case 6:
-        printf("| O   O ||  ");
-        break;
-    default: break;
-    }
-}
-printf("\n");
-for(int i=0; i<5;i++) printf("|       ||  ");
-printf("\n");
-for(int i=0;i<5; i++)
+for(int i=0;i<5; i++)       // seventh line is not equal
 {
     switch(Wuerfel[i]){
     case 1:
@@ -435,12 +435,12 @@ for(int i=0;i<5; i++)
         break;
     case 2:
     case 3:
-        printf("|_____O_|/  ");
+        printf("|_____O_|/  ");     // Number 2 and 3 have the same seventh line ( case 2 go to case 3 because no break)
         break;
     case 4:
     case 5:
     case 6:
-        printf("|_O___O_|/  ");
+        printf("|_O___O_|/  ");     // Number 4, 5 and 6 have the same seventh line ( case 4 and 5 go to case 6 because no break)
         break;
     default: break;
    }
