@@ -2,7 +2,6 @@
 ////TODO
 //////////Abfrage/EIntragung nicht doppelt
 //////////Fehlerüberprüfung Eingabe
-//Farbe bei verschiedenen Spielern
 
 
 //Globale Variablen
@@ -11,11 +10,11 @@ int aktSpieler=1;
 int Wuerfel[5];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
-char *Farben;
 int FarbenAktiviert =0;
-int **Werte;
 int fertig = 0;
+int **Werte;
 char **name;
+char *Farben;
 int main()
 {
     //Program start
@@ -553,4 +552,10 @@ return 0;
 int gesamt(int Spieler){
 
 return Bonus(Spieler)+SummeOben(Spieler)+SummeUnten(Spieler);
+}
+
+
+void PCanderReihe(){
+
+
 }
