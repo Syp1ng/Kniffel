@@ -15,8 +15,9 @@ int fertig = 0;
 int **Werte;
 char **name;
 char *Farben;
-char oe=(char)153;
+char oe=(char)148; //Helpchars
 char ue = (char)129;
+char ss= (char) 225;
 
 
 int main()
@@ -32,8 +33,8 @@ int main()
 void FarbeAnzeigen(){
 printf("0 = Schwarz      8 = Grau\n");
 printf("1 = Blau         9 = Hellblau\n");
-printf("2 = Gruen        A = Hellgruen\n");
-printf("3 = Tuerkis      B = Helltuerkis\n");
+printf("2 = Gr%cn         A = Hellgr%cn\n", ue, ue);
+printf("3 = T%crkis       B = Hellt%crkis\n", ue, ue);
 printf("4 = Rot          C = Hellrot\n");
 printf("5 = Lila         D = Helllila\n");
 printf("6 = Gelb         E = Hellgelb\n");
@@ -109,7 +110,7 @@ printf("1  Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
 printf("2  Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
 printf("3  Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
 printf("4  Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
-printf("5  Fuenfer        : Augen(5): %i\n", Werte[4][aktSpieler-1]);
+printf("5  F%cnfer         : Augen(5): %i\n", ue, Werte[4][aktSpieler-1]);
 printf("6  Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
 printf("   Summe oben     :         : %i\n", SummeOben(aktSpieler));
 printf("   Bonus (bei 63P):   35    : %i\n", Bonus(aktSpieler));
@@ -117,8 +118,8 @@ printf("   Oberer Teil    :         : %i\n", SummeOben(aktSpieler)+Bonus(aktSpie
 printf("7  Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
 printf("8  Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
 printf("9  Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
-printf("10 Kleine Strasse :    30   : %i\n", Werte[9][aktSpieler-1]);
-printf("11 Grosse Strasse :    40   : %i\n", Werte[10][aktSpieler-1]);
+printf("10 Kleine Stra%ce  :    30   : %i\n", ss, Werte[9][aktSpieler-1]);
+printf("11 Gro%ce Stra%ce   :    40   : %i\n", ss, ss, Werte[10][aktSpieler-1]);
 printf("12 Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
 printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
 printf("   Summe unten    :         : %i\n", SummeUnten(aktSpieler)+Bonus(aktSpieler));
@@ -167,7 +168,7 @@ void init() { //initiallize array, player names
     char spielername [anzSpieler][30];
 
     char farbelesen;
-    printf("Moechten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", ue);
+    printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", oe, ue);
     scanf(" %c", &farbelesen);
     if(farbelesen=='1'||farbelesen=='j'){FarbenAktiviert=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
@@ -185,7 +186,7 @@ void init() { //initiallize array, player names
         strncpy(name[i], spielername[i],13);//Only size of 13
         name[i][13] = '\0'; //sting has to end, set manually
         if(FarbenAktiviert==1){
-                printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe");
+                printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
                 scanf(" %c", &Farben[i]);
                 }
     }
@@ -229,7 +230,8 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     WuerfelMitgenommen = 0;
-    printf("\"J\" für ja, \"N\" für nein, \"e\" für gleich eintragen und \"#\" für alle Würfel neu würfeln\nBei Falscheingabe wird Würfel nicht gespeichert!\n");
+    printf("\"J\" f%cr ja, \"N\" f%cr nein, \"e\" f%cr gleich eintragen und \"#\" f%ccr alle W%crfel neu w%crfeln. ", ue, ue, ue, ue,ue,ue);
+    printf("Bei Falscheingabe wird Würfel nicht gespeichert!\n");
     for(int i =1; i<= 5; i++){
         char ctemp;
         printf("%s: Moechtest du Wuerfel %d speichern? \n", name[aktSpieler-1],i);
@@ -247,7 +249,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
 
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
-            printf("Wuerfel %i wurde gespeichert!\n", i);
+            printf("W%crfel %i wurde gespeichert!\n",ue, i);
             WuerfelMitgenommen++;
         }
         else if(ctemp == 'e'){
@@ -259,7 +261,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             break;
         }
         else{
-            printf("Wuerfel %i wurde nicht gespeichert!\n", i);
+            printf("W%crfel %i wurde nicht gespeichert!\n", ue, i);
         }
     }
     memcpy(Wuerfel, tempWuerfel,WuerfelMitgenommen*sizeof(int));
@@ -317,7 +319,7 @@ return 0;
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
     falsch:
-    printf("Zahl eingeben, \"0\" fuer Streichen.\n");
+    printf("Zahl eingeben, \"0\" f%cr Streichen.\n", ue);
     int punkte= 0;
     int aktion;
     char akt;
