@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include <stdbool.h>
 ////TODO
 //////////Abfrage/EIntragung nicht doppelt
 //////////Fehlerüberprüfung Eingabe
-//////////Nur stdio.h benutzen ???????????????????????????--> dann bool umändern
 //Farbe bei verschiedenen Spielern
 
 
@@ -14,9 +12,9 @@ int Wuerfel[5];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
 char *Farben;
-short FarbenAktiviert =0;
+int FarbenAktiviert =0;
 int **Werte;
-bool fertig = false;
+int fertig = 0;
 char **name;
 int main()
 {
@@ -39,6 +37,7 @@ printf("6 = Gelb         E = Hellgelb\n");
 printf("7 = Hellgrau     F = Weiss\n");
 }
 void FarbeAendern(char color){
+    color = toupper(color);
 switch(color){
 case '0':
     system("color 00");
@@ -127,18 +126,18 @@ void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     WuerfelMitgenommen=0;
     printf("\nSpieler %s ist an der Reihe!\n\n", name[aktSpieler-1]);
     if(FarbenAktiviert==1)FarbeAendern(Farben[aktSpieler-1]);
-    while(Wurf<3 && fertig== false){
+    while(Wurf<3 && fertig== 0){
             AnzeigeTafel();
             generate();
             if(Wurf<2)SelectCube();
             Wurf++;
           }
-    if(fertig==false)eingabe();
+    if(fertig==0)eingabe();
           printf("Dein Spielstand:\n");
           AnzeigeTafel();
     aktSpieler++;
     if(aktSpieler>anzSpieler)aktSpieler=1;
-    fertig = false;
+    fertig = 0;
     Wurf =0;
     //Wenn alles ausgefüllt
     if(AllesAusgefuellt()==1)GameOver();
@@ -178,7 +177,7 @@ void init() { //initiallize array, player names
         strcpy(name[i], spielername[i]);
         if(FarbenAktiviert==1){
                 printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe");
-                scanf(" %c", &Farben[0]);
+                scanf(" %c", &Farben[i]);
                 }
     }
     for(int i = 0; i < anzSpieler; i++) {
@@ -376,7 +375,7 @@ case 13:
     break;
     }
    Werte[aktion-1][aktSpieler-1] = punkte;
-   fertig=true;
+   fertig=1;
 }
 
 void WuerfelAnzeige(){ // display dices graphically
