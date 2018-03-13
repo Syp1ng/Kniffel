@@ -170,6 +170,7 @@ void init() { //initiallize array, player names
     char farbelesen;
     printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", oe, ue);
     scanf(" %c", &farbelesen);
+    farbelesen= tolower(farbelesen);
     if(farbelesen=='1'||farbelesen=='j'){FarbenAktiviert=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
     Farben = malloc((anzSpieler+1) * sizeof(char*));//Farben
@@ -246,7 +247,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             while (getchar() != '\n')
             continue;*/
             scanf(" %c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
-
+        ctemp = tolower(ctemp);
         if(ctemp == 'j'){
             tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
             printf("W%crfel %i wurde gespeichert!\n",ue, i);
@@ -322,15 +323,13 @@ void eingabe(){ //here the user is able to tell the programm, where he writes so
     printf("Zahl eingeben, \"0\" f%cr Streichen.\n", ue);
     int punkte= 0;
     int aktion;
-    char akt;
     while (getchar() != '\n')
         continue;
-        scanf(" %c", &aktion);
-    aktion=(int)akt;
+        scanf(" %i", &aktion);
 if(aktion == 0)
     {}
 else if(aktion>13)goto falsch;
-else if(Werte[aktion-1][anzSpieler-1]!=0){ printf("Feld schon besetzt! \n"); goto falsch;}
+else if(Werte[aktion-1][aktSpieler-1]!=0){ printf("Feld schon besetzt! \n"); goto falsch;}
     switch(aktion){
 case 0:
     printf("Welches Feld willst du streichen?");
