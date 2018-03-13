@@ -15,6 +15,8 @@ int fertig = 0;
 int **Werte;
 char **name;
 char *Farben;
+char oe=(char)153;
+char ue = (char)129;
 
 
 int main()
@@ -154,30 +156,34 @@ return 1;
 }
 
 void init() { //initiallize array, player names
-    do{
     printf("Geben Sie die Anzahl der Spieler ein: ");
     scanf("%i", &anzSpieler);
-    }while(anzSpieler<0|| anzSpieler>2147483647);
+    if (anzSpieler<1||anzSpieler>2147483647){ //Error if <0 ....
+        printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
+            anzSpieler=1;
+        }
 
     printf("Anzahl der Spieler: %i\n", anzSpieler);
     char spielername [anzSpieler][30];
 
     char farbelesen;
-    printf("Moechten Sie mit unterschiedlichen Farben Spielen?");
+    printf("Moechten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", ue);
     scanf(" %c", &farbelesen);
     if(farbelesen=='1'||farbelesen=='j'){FarbenAktiviert=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
-    FarbeAnzeigen();}
-    name = malloc(anzSpieler * sizeof(char*));//Namen
     Farben = malloc((anzSpieler+1) * sizeof(char*));//Farben
+    FarbeAnzeigen();}
+    else{printf("Farbfunktion nicht aktiv.\n");}
+    name = malloc(anzSpieler * sizeof(char*));//Namen
     for(int i = 0; i < anzSpieler; i++) {
     name[i] = malloc((12 + 1) * sizeof(char));}
     printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
 
     for (int i = 0; i < anzSpieler; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
-        scanf("%s", &spielername[i]);
-        strcpy(name[i], spielername[i]);
+        scanf(" %s", &spielername[i]);
+        strncpy(name[i], spielername[i],13);//Only size of 13
+        name[i][13] = '\0'; //sting has to end, set manually
         if(FarbenAktiviert==1){
                 printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe");
                 scanf(" %c", &Farben[i]);
@@ -210,22 +216,23 @@ void generate(){//random number
     WuerfelAnzeige();
 }
 // the random function
-void RandomNumberGenerator(int nNumOfNumsToGenerate){ //generates random number
-    int nRandomNumber = 0;
-    for (int i = 0; i < nNumOfNumsToGenerate; i++)
+void RandomNumberGenerator(int NumbersGenerate){ //generates random number
+    int RandomNumber = 0;
+    for (int i = 0; i < NumbersGenerate; i++)
     {
-        nRandomNumber = rand()%(6) + 1;
-        printf("%d ", nRandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS
-        Wuerfel[i+WuerfelMitgenommen]= nRandomNumber;
+        RandomNumber = rand()%(6) + 1;
+        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS
+        Wuerfel[i+WuerfelMitgenommen]= RandomNumber;
     }
 }
 
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     WuerfelMitgenommen = 0;
+    printf("\"J\" für ja, \"N\" für nein, \"e\" für gleich eintragen und \"#\" für alle Würfel neu würfeln\nBei Falscheingabe wird Würfel nicht gespeichert!\n");
     for(int i =1; i<= 5; i++){
         char ctemp;
-        printf("%s: Moechtest du Wuerfel %d speichern? \n", name[aktSpieler-1],i); //Gib j--> für Ja, n --> nein, #--> alles neu, e=eintragen
+        printf("%s: Moechtest du Wuerfel %d speichern? \n", name[aktSpieler-1],i);
         /*do{
         while (getchar() != '\n')
         continue;
@@ -243,9 +250,6 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             printf("Wuerfel %i wurde gespeichert!\n", i);
             WuerfelMitgenommen++;
         }
-        else if(ctemp == 'n'){
-            printf("Wuerfel %i wurde nicht gespeichert!\n", i);
-        }
         else if(ctemp == 'e'){
             eingabe();
             break;
@@ -253,6 +257,9 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         else if(ctemp == '#'){
             WuerfelMitgenommen=0;
             break;
+        }
+        else{
+            printf("Wuerfel %i wurde nicht gespeichert!\n", i);
         }
     }
     memcpy(Wuerfel, tempWuerfel,WuerfelMitgenommen*sizeof(int));
@@ -309,15 +316,21 @@ return 0;
 }
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
-    printf("Zahl eingeben, 0 für Streichen.\n");
+    falsch:
+    printf("Zahl eingeben, \"0\" fuer Streichen.\n");
+    int punkte= 0;
     int aktion;
+    char akt;
     while (getchar() != '\n')
         continue;
-        scanf(" %i", &aktion);
-    int punkte= 0;
+        scanf(" %c", &aktion);
+    aktion=(int)akt;
+if(aktion == 0)
+    {}
+else if(aktion>13)goto falsch;
+else if(Werte[aktion-1][anzSpieler-1]!=0){ printf("Feld schon besetzt! \n"); goto falsch;}
     switch(aktion){
 case 0:
-    falsch:
     printf("Welches Feld willst du streichen?");
     while (getchar() != '\n')
         continue;
@@ -328,7 +341,7 @@ case 0:
         punkte=-1;
     }
     else{
-        printf("Kann nicht gestrichen werden\n");
+        printf("Kann nicht gestrichen werden.\n");
         goto falsch;
     }
     break;
@@ -375,6 +388,10 @@ case 12:
     break;
 case 13:
     punkte = zaehlenalles();
+    break;
+default:
+    printf("Fehler!\n");
+    goto falsch;
     break;
     }
    Werte[aktion-1][aktSpieler-1] = punkte;
@@ -531,6 +548,8 @@ for(int i = 1;i<=anzSpieler;i++){
     printf("%i. Platz ist %s mit %i Punkten!\n", i,name[maxvaluespieler],maxvalue);
     Werte[0][maxvaluespieler]=-100;
 }
+
+printf("Kniffel: Developed by Andres Woerrlein, Dennis Wohlfarth, Fabian Schurk.\n");
 }
 
 int SummeOben(int Spieler){
