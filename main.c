@@ -4,7 +4,7 @@ int PlayerNumber; //How many Players play the game
 int CurrentPlayer=1; //Which Player plays right now
 int Cube[5]; //Saves the values of the cubes, 5 Cubes
 int CubesPutAway =0; //How many cubes the player saves, the other cubes reroll
-int Throw = 0; //Wurf <=3 //Player has 3 throws a round
+int Throw = 0; //Throws <=3 //Player has 3 throws a round
 int ColorMode =0;//Player can select a color
 int Finish = 0; //Tells when player has filled out table
 int **Values; //Saves the score table [field][player]
