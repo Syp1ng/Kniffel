@@ -156,7 +156,7 @@ while (getchar() != '\n')
 void Initialize() { //initiallize array, player names
     printf("Geben Sie die Anzahl der Spieler ein: ");
     scanf("%i", &PlayerNumber);
-    if (PlayerNumber<1||PlayerNumber>2147483647){ //Error if <1 ....
+    if (PlayerNumber<1||PlayerNumber>10000){ //Error if <1 .... Max 10000 players
         printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
             PlayerNumber=1;
         }
