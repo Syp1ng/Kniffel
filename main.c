@@ -1,36 +1,30 @@
 #include <stdio.h>
-////TODO
-//////////Abfrage/EIntragung nicht doppelt
-//////////Fehlerüberprüfung Eingabe
 
-
-//Globale Variablen
-int anzSpieler;
-int aktSpieler=1;
-int Wuerfel[5];
-int WuerfelMitgenommen =0;
-int Wurf = 0; //Wurf <=3
-int FarbenAktiviert =0;
-int fertig = 0;
-int **Werte;
-char **name;
-char *Farben;
-char oe=(char)148; //Helpchars
-char ue = (char)129;
-char ss= (char) 225;
+int PlayerNumber; //How many Players play the game
+int CurrentPlayer=1; //Which Player plays right now
+int Cube[5]; //Saves the values of the cubes, 5 Cubes
+int CubesPutAway =0; //How many cubes the player saves, the other cubes reroll
+int Throw = 0; //Wurf <=3 //Player has 3 throws a round
+int ColorMode =0;//Player can select a color
+int Finish = 0; //Tells when player has filled out table
+int **Values; //Saves the score table [field][player]
+char **Names;//Saves the names of the [player]
+char *Colors;//Saves the color of the [player]
+char oe=(char)148; //Helpchar Ö
+char ue = (char)129;//Helpchar Ü
+char ss= (char) 225;//Helpchar ß
 
 
 int main()
 {
     //Program start
-    //FarbeAendern();
-    init();
+    Initialize();
     //Fuellen();
-    SpielerAnDerReihe();
+    GameStructure();
     return 0;
 }
 
-void FarbeAnzeigen(){
+void ShowColorsAvailible(){  //Shows the color table with number
 printf("0 = Schwarz      8 = Grau\n");
 printf("1 = Blau         9 = Hellblau\n");
 printf("2 = Gr%cn         A = Hellgr%cn\n", ue, ue);
@@ -40,9 +34,9 @@ printf("5 = Lila         D = Helllila\n");
 printf("6 = Gelb         E = Hellgelb\n");
 printf("7 = Hellgrau     F = Weiss\n");
 }
-void FarbeAendern(char color){
+void ChangeColor(char color){ //Changes Color of the console
     color = toupper(color);
-switch(color){
+switch(color){ //different color for char
 case '0':
     system("color 00");
     break;
@@ -97,125 +91,130 @@ default:
 }
 }
 
-void Fuellen(){ //test function
+void Fill(){ //test function //
 /*for(int i = 0;i<5; i++){
     for(int j = 0; j<12; j++){
         Werte[j][i]=i*5+1;
     }
 }*/
 }
-void AnzeigeTafel(){ //Shows the scoretable
+void ShowScoreTable(){ //Shows the scoretable of the current Player
 printf("   Kategorie      : Wertung :Spieler\n");
-printf("1  Einser         : Augen(1): %i\n", Werte[0][aktSpieler-1]);
-printf("2  Zweier         : Augen(2): %i\n", Werte[1][aktSpieler-1]);
-printf("3  Dreier         : Augen(3): %i\n", Werte[2][aktSpieler-1]);
-printf("4  Vierer         : Augen(4): %i\n", Werte[3][aktSpieler-1]);
-printf("5  F%cnfer         : Augen(5): %i\n", ue, Werte[4][aktSpieler-1]);
-printf("6  Sechser        : Augen(6): %i\n", Werte[5][aktSpieler-1]);
-printf("   Summe oben     :         : %i\n", SummeOben(aktSpieler));
-printf("   Bonus (bei 63P):   35    : %i\n", Bonus(aktSpieler));
-printf("   Oberer Teil    :         : %i\n", SummeOben(aktSpieler)+Bonus(aktSpieler));
-printf("7  Dreierpasch    :  Summe  : %i\n", Werte[6][aktSpieler-1]);
-printf("8  Viererpasch    :  Summe  : %i\n", Werte[7][aktSpieler-1]);
-printf("9  Full House     :    25   : %i\n", Werte[8][aktSpieler-1]);
-printf("10 Kleine Stra%ce  :    30   : %i\n", ss, Werte[9][aktSpieler-1]);
-printf("11 Gro%ce Stra%ce   :    40   : %i\n", ss, ss, Werte[10][aktSpieler-1]);
-printf("12 Kniffel        :    50   : %i\n", Werte[11][aktSpieler-1]);
-printf("13 Chance         :  Summe  : %i\n", Werte[12][aktSpieler-1]);
-printf("   Summe unten    :         : %i\n", SummeUnten(aktSpieler)+Bonus(aktSpieler));
-printf("   Gesamt         :         : %i\n", gesamt(aktSpieler));
+printf("1  Einser         : Augen(1): %i\n", Values[0][CurrentPlayer-1]);
+printf("2  Zweier         : Augen(2): %i\n", Values[1][CurrentPlayer-1]);
+printf("3  Dreier         : Augen(3): %i\n", Values[2][CurrentPlayer-1]);
+printf("4  Vierer         : Augen(4): %i\n", Values[3][CurrentPlayer-1]);
+printf("5  F%cnfer         : Augen(5): %i\n", ue, Values[4][CurrentPlayer-1]);
+printf("6  Sechser        : Augen(6): %i\n", Values[5][CurrentPlayer-1]);
+printf("   Summe oben     :         : %i\n", SumTop(CurrentPlayer));
+printf("   Bonus (bei 63P):   35    : %i\n", Bonus(CurrentPlayer));
+printf("   Oberer Teil    :         : %i\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("7  Dreierpasch    :  Summe  : %i\n", Values[6][CurrentPlayer-1]);
+printf("8  Viererpasch    :  Summe  : %i\n", Values[7][CurrentPlayer-1]);
+printf("9  Full House     :    25   : %i\n", Values[8][CurrentPlayer-1]);
+printf("10 Kleine Stra%ce  :    30   : %i\n", ss, Values[9][CurrentPlayer-1]);
+printf("11 Gro%ce Stra%ce   :    40   : %i\n", ss, ss, Values[10][CurrentPlayer-1]);
+printf("12 Kniffel        :    50   : %i\n", Values[11][CurrentPlayer-1]);
+printf("13 Chance         :  Summe  : %i\n", Values[12][CurrentPlayer-1]);
+printf("   Summe unten    :         : %i\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("   Gesamt         :         : %i\n", TotalSum(CurrentPlayer));
 }
 
-void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
-    WuerfelMitgenommen=0;
-    printf("\nSpieler %s ist an der Reihe!\n\n", name[aktSpieler-1]);
-    if(FarbenAktiviert==1)FarbeAendern(Farben[aktSpieler-1]);
-    while(Wurf<3 && fertig== 0){
-            AnzeigeTafel();
-            generate();
-            if(Wurf<2)SelectCube();
-            Wurf++;
+void GameStructure(){//control structur for the game and playerchange
+    CubesPutAway=0;
+    printf("\nSpieler %s ist an der Reihe!\n\n", Names[CurrentPlayer-1]);
+    if(ColorMode==1)ChangeColor(Colors[CurrentPlayer-1]);
+    while(Throw<3 && Finish== 0){
+            ShowScoreTable();
+            Generate();
+            if(Throw<2)SelectCube();
+            Throw++;
           }
-    if(fertig==0)eingabe();
+    if(Finish==0)FillTable();
           printf("Dein Spielstand:\n");
-          AnzeigeTafel();
-    aktSpieler++;
-    if(aktSpieler>anzSpieler)aktSpieler=1;
-    fertig = 0;
-    Wurf =0;
-    //Wenn alles ausgefüllt
-    if(AllesAusgefuellt()==1)GameOver();
-    else{SpielerAnDerReihe();}
+          ShowScoreTable();
+    CurrentPlayer++;
+    if(CurrentPlayer>PlayerNumber)CurrentPlayer=1;//Change player to 1 when everyone played
+    Finish = 0;//for next player
+    Throw =0;//for next player
+    if(IsEverythingFilledOut()==1)GameOver();//Ends game when table is full
+    else{GameStructure();}//Otherwise go on
 }
 
-int AllesAusgefuellt(){
+int IsEverythingFilledOut(){ //Checks the score table if it's full
 for(int i=0;i<13;i++){
-    if(Werte[i][anzSpieler-1]==0)
+    if(Values[i][PlayerNumber-1]==0)
     return 0;
 }
 return 1;
 }
 
-void init() { //initiallize array, player names
+void Clear(){ // Buffer clear of scanf
+while (getchar() != '\n')
+        continue;}
+
+void Initialize() { //initiallize array, player names
     printf("Geben Sie die Anzahl der Spieler ein: ");
-    scanf("%i", &anzSpieler);
-    if (anzSpieler<1||anzSpieler>2147483647){ //Error if <0 ....
+    scanf("%i", &PlayerNumber);
+    if (PlayerNumber<1||PlayerNumber>2147483647){ //Error if <1 ....
         printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
-            anzSpieler=1;
+            PlayerNumber=1;
         }
 
-    printf("Anzahl der Spieler: %i\n", anzSpieler);
-    char spielername [anzSpieler][30];
+    printf("Anzahl der Spieler: %i\n", PlayerNumber);
+    char spielername [PlayerNumber][30];
 
     char farbelesen;
+    Clear();
     printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", oe, ue);
     scanf(" %c", &farbelesen);
     farbelesen= tolower(farbelesen);
-    if(farbelesen=='1'||farbelesen=='j'){FarbenAktiviert=1;
+    if(farbelesen=='1'||farbelesen=='j'){ColorMode=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
-    Farben = malloc((anzSpieler+1) * sizeof(char*));//Farben
-    FarbeAnzeigen();}
+    Colors = malloc((PlayerNumber+1) * sizeof(char*));//Farben
+    ShowColorsAvailible();}
     else{printf("Farbfunktion nicht aktiv.\n");}
-    name = malloc(anzSpieler * sizeof(char*));//Namen
-    for(int i = 0; i < anzSpieler; i++) {
-    name[i] = malloc((12 + 1) * sizeof(char));}
-    printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
+    Names = malloc(PlayerNumber * sizeof(char*));//Namen
+    for(int i = 0; i < PlayerNumber; i++) {
+    Names[i] = malloc((12 + 1) * sizeof(char));}
+    printf("Bitte geben Sie %i Namen ein:\n", PlayerNumber);
 
-    for (int i = 0; i < anzSpieler; i++) {
+    Clear();
+    for (int i = 0; i < PlayerNumber; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
         scanf(" %s", &spielername[i]);
-        strncpy(name[i], spielername[i],13);//Only size of 13
-        name[i][13] = '\0'; //sting has to end, set manually
-        if(FarbenAktiviert==1){
+        strncpy(Names[i], spielername[i],13);//Only size of 13
+        Names[i][13] = '\0'; //string has to end, set manually
+        if(ColorMode==1){ //Only with ColorMode aktivated
                 printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
-                scanf(" %c", &Farben[i]);
+                scanf(" %c", &Colors[i]);
                 }
     }
-    for(int i = 0; i < anzSpieler; i++) {
+    for(int i = 0; i < PlayerNumber; i++) {
         printf("Spieler %d = %s\n", i+1, spielername[i]);
 
     }
-    //Initalize Table
-    Werte =(int **) malloc(13*sizeof(int *));
-    for(int i=0;i<13;i++) Werte[i]=(int *) malloc(anzSpieler*sizeof(int));
+    //Initalize score table
+    Values =(int **) malloc(13*sizeof(int *));
+    for(int i=0;i<13;i++) Values[i]=(int *) malloc(PlayerNumber*sizeof(int));
     for(int i = 0;i<13;i++){ //set to 0
-        for(int j = 0; j<anzSpieler; j++){
-            Werte[i][j] =0;
+        for(int j = 0; j<PlayerNumber; j++){
+            Values[i][j] =0;
         }
     }
 
 }
 
-int compare (const void * a, const void * b) {
+int Compare (const void * a, const void * b) { //compare function for the cubes
    int value1=*(int*)a;
    int value2=*(int*)b;
    return value1-value2;
 }
-void generate(){//random number
+void Generate(){//random number
     srand(time(NULL));
-    RandomNumberGenerator(5-WuerfelMitgenommen);   // generate a Random number
-    qsort(Wuerfel, 5, sizeof(int), compare);
-    WuerfelAnzeige();
+    RandomNumberGenerator(5-CubesPutAway);   // generate a Random number
+    qsort(Cube, 5, sizeof(int), Compare);
+    ShowCubes();
 }
 // the random function
 void RandomNumberGenerator(int NumbersGenerate){ //generates random number
@@ -223,76 +222,68 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
     for (int i = 0; i < NumbersGenerate; i++)
     {
         RandomNumber = rand()%(6) + 1;
-        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS
-        Wuerfel[i+WuerfelMitgenommen]= RandomNumber;
+        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS////////////////////////////////////////////
+        Cube[i+CubesPutAway]= RandomNumber;
     }
 }
 
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
-    WuerfelMitgenommen = 0;
+    CubesPutAway = 0;
     printf("\"J\" f%cr ja, \"N\" f%cr nein, \"e\" f%cr gleich eintragen und \"#\" f%ccr alle W%crfel neu w%crfeln. ", ue, ue, ue, ue,ue,ue);
-    printf("Bei Falscheingabe wird Würfel nicht gespeichert!\n");
+    printf("Bei Falscheingabe wird W%crfel nicht gespeichert!\n", ue);
     for(int i =1; i<= 5; i++){
         char ctemp;
-        printf("%s: Moechtest du Wuerfel %d speichern? \n", name[aktSpieler-1],i);
-        /*do{
-        while (getchar() != '\n')
-        continue;
-        scanf(" %c", &ctemp);
-        }while(ctemp != 'j'|| ctemp !='n' || ctemp!='#');*/
-        while (getchar() != '\n')
-        continue;
-        /*do{
-            while (getchar() != '\n')
-            continue;*/
-            scanf(" %c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
+        printf("%s: M%cchtest du W%crfel %d speichern? \n", Names[CurrentPlayer-1], oe, ue,i);
+        Clear();
+            scanf("%c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
         ctemp = tolower(ctemp);
         if(ctemp == 'j'){
-            tempWuerfel[WuerfelMitgenommen] = Wuerfel[i-1];          //Save it
+            tempWuerfel[CubesPutAway] = Cube[i-1];          //Save it
             printf("W%crfel %i wurde gespeichert!\n",ue, i);
-            WuerfelMitgenommen++;
+            CubesPutAway++;
         }
         else if(ctemp == 'e'){
-            eingabe();
+            FillTable();
             break;
         }
         else if(ctemp == '#'){
-            WuerfelMitgenommen=0;
+            CubesPutAway=0;
             break;
         }
         else{
             printf("W%crfel %i wurde nicht gespeichert!\n", ue, i);
         }
     }
-    memcpy(Wuerfel, tempWuerfel,WuerfelMitgenommen*sizeof(int));
-    if(WuerfelMitgenommen==5)eingabe();
+    memcpy(Cube, tempWuerfel,CubesPutAway*sizeof(int));
+    if(CubesPutAway==5)FillTable();
 }
 
-int zaehlen(int x){ //summ all the x-cubes
+//Evaluation
+int Count(int x){ //summ all the x-cubes
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
-        if (Wuerfel[i]==x) rueckgabe+=x;
+        if (Cube[i]==x) rueckgabe+=x;
     }
     return rueckgabe;
 }
-int zaehlenalles(){ //chekcs the sum of all cubes
+int CountEverything(){ //counts the sum of all cubes
     int rueckgabe = 0;
     for(int i = 0; i<5;i++)
     {
-        rueckgabe+=Wuerfel[i];
+        rueckgabe+=Cube[i];
     }
     return rueckgabe;
 }
-int zaehlengleiche(){ //chekcs how many times the most number is there
+int CountSameValues(){ //checks how many times the most number is there
 int gleiche = 0, tempgleiche = 0;
 
 for(int i = 1; i<=6;i++){
 
     for(int j = 0;j<5;j++){
 
-        if (Wuerfel[j]== i) tempgleiche++;
+        if (Cube[j]== i) tempgleiche++;
     }
     if (tempgleiche >gleiche) gleiche= tempgleiche;
     tempgleiche=0;
@@ -300,14 +291,14 @@ for(int i = 1; i<=6;i++){
 }
 return gleiche;
 }
-int FullHouseCheck(){
+int FullHouseCheck(){ //checks if it's FullHouse
     int gleiche = 0, tempgleiche = 0, tempgleiche2=0;
 
 for(int i = 1; i<=6;i++){//Zahlen
 
     for(int j = 0;j<5;j++){//Würfel
 
-        if (Wuerfel[j]== i) tempgleiche++;
+        if (Cube[j]== i) tempgleiche++;
     }
     if (tempgleiche >gleiche){tempgleiche2= gleiche; gleiche = tempgleiche;}
     else if (tempgleiche>tempgleiche2)tempgleiche2= tempgleiche;
@@ -318,88 +309,88 @@ if(gleiche+tempgleiche2==5)return 1;
 return 0;
 }
 
-void eingabe(){ //here the user is able to tell the programm, where he writes something down
-    falsch:
+void FillTable(){ //here the user is able to tell the programm, where he writes something down
+    wrong:
+    Clear();
     printf("Zahl eingeben, \"0\" f%cr Streichen.\n", ue);
-    int punkte= 0;
-    int aktion;
-    while (getchar() != '\n')
-        continue;
-        scanf(" %i", &aktion);
-if(aktion == 0)
+    int points= 0;//how many points to add
+    int action; //Which field to fill
+    Clear();
+        scanf(" %i", &action);
+if(action == 0)
     {}
-else if(aktion>13)goto falsch;
-else if(Werte[aktion-1][aktSpieler-1]!=0){ printf("Feld schon besetzt! \n"); goto falsch;}
-    switch(aktion){
+else if(action>13)goto wrong;//Wrong input
+else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
+    switch(action){
 case 0:
     printf("Welches Feld willst du streichen?");
     while (getchar() != '\n')
         continue;
         int feld;
         scanf(" %i", &feld);
-    if(Werte[feld-1][aktSpieler-1]==0){
-        aktion=feld;
-        punkte=-1;
+    if(Values[feld-1][CurrentPlayer-1]==0){
+        action=feld;
+        points=-1;
     }
     else{
         printf("Kann nicht gestrichen werden.\n");
-        goto falsch;
+        goto wrong;
     }
     break;
 case 1:
-    if (zaehlen(1)>0)punkte = zaehlen(1);
+    if (Count(1)>0)points = Count(1);
     break;
 case 2:
-    if (zaehlen(2)>0)punkte = zaehlen(2);
+    if (Count(2)>0)points = Count(2);
     break;
 case 3:
-    if (zaehlen(3)>0)punkte = zaehlen(3);
+    if (Count(3)>0)points = Count(3);
     break;
 case 4:
-    if (zaehlen(4)>0)punkte = zaehlen(4);
+    if (Count(4)>0)points = Count(4);
     break;
 case 5:
-    if (zaehlen(5)>0)punkte = zaehlen(5);
+    if (Count(5)>0)points = Count(5);
     break;
 case 6:
-    if (zaehlen(6)>0)punkte = zaehlen(6);
+    if (Count(6)>0)points = Count(6);
     break;
 case 7:
-    if (zaehlengleiche()>=3) punkte = zaehlenalles();
+    if (CountSameValues()>=3) points = CountEverything();
     break;
 case 8:
-    if (zaehlengleiche()>=4) punkte = zaehlenalles();
+    if (CountSameValues()>=4) points = CountEverything();
     break;
 case 9:
-    if (FullHouseCheck()==1 )punkte = 25;
+    if (FullHouseCheck()==1 )points = 25;
     break;
 case 10:
-    if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1)||
-        (zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1)||
-        (zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1&&zaehlen(6)>=1))
-        punkte=30;
+    if ((Count(1)>=1&&Count(2)>=1&&Count(3)>=1&&Count(4)>=1)||
+        (Count(2)>=1&&Count(3)>=1&&Count(4)>=1&&Count(5)>=1)||
+        (Count(3)>=1&&Count(4)>=1&&Count(5)>=1&&Count(6)>=1))
+        points=30;
     break;
 case 11:
-    if ((zaehlen(1)>=1&&zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1)||
-        (zaehlen(2)>=1&&zaehlen(3)>=1&&zaehlen(4)>=1&&zaehlen(5)>=1&&zaehlen(6)>=1)
-        )punkte = 40;
+    if ((Count(1)>=1&&Count(2)>=1&&Count(3)>=1&&Count(4)>=1&&Count(5)>=1)||
+        (Count(2)>=1&&Count(3)>=1&&Count(4)>=1&&Count(5)>=1&&Count(6)>=1)
+        )points = 40;
     break;
 case 12:
-    if (zaehlengleiche()== 5) punkte = 50;
+    if (CountSameValues()== 5) points = 50;
     break;
 case 13:
-    punkte = zaehlenalles();
+    points = CountEverything();
     break;
 default:
     printf("Fehler!\n");
-    goto falsch;
+    goto wrong;
     break;
     }
-   Werte[aktion-1][aktSpieler-1] = punkte;
-   fertig=1;
+   Values[action-1][CurrentPlayer-1] = points;//Fill the table with the points to the current player
+   Finish=1;//End players train --> next player
 }
 
-void WuerfelAnzeige(){ // display dices graphically
+void ShowCubes(){ // display dices graphically
 printf("\n");
 for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all dices
 printf("\n");
@@ -407,7 +398,7 @@ for(int i=0;i<5; i++) printf(" /______/|  "); // secound line is the same for al
 printf("\n");
 for(int i=0;i<5; i++) // third line is not equal
 {
-    switch(Wuerfel[i]){         //Adapt third line to the corresponding number
+    switch(Cube[i]){         //Adapt third line to the corresponding number
     case 1:
         printf("|       ||  ");
         break;
@@ -428,7 +419,7 @@ for(int i=0; i<5;i++) printf("|       ||  "); // fourth line is the same for all
 printf("\n");
 for(int i=0;i<5; i++)   //fifth line is not equal
 {
-    switch(Wuerfel[i]){     //Adapt third line to the corresponding number
+    switch(Cube[i]){     //Adapt third line to the corresponding number
     case 1:
     case 3:
     case 5:
@@ -449,7 +440,7 @@ for(int i=0; i<5;i++) printf("|       ||  ");   // // sixth line is the same for
 printf("\n");
 for(int i=0;i<5; i++)       // seventh line is not equal
 {
-    switch(Wuerfel[i]){
+    switch(Cube[i]){
     case 1:
         printf("|_______|/  ");
         break;
@@ -533,47 +524,47 @@ for(int i = 0;i<5; i++){
 
 void GameOver(){ // Function 4 gameover, to set winner, display winner
     printf("\n\n\n");
-for(int i = 1;i<=anzSpieler;i++)
+for(int i = 1;i<=PlayerNumber;i++)
     {
-        Werte[0][i-1] = gesamt(i); //save the score of each player in index 0
+        Values[0][i-1] = TotalSum(i); //save the score of each player in index 0
     }
-for(int i = 1;i<=anzSpieler;i++){
+for(int i = 1;i<=PlayerNumber;i++){
     int maxvalue=0;
     int maxvaluespieler=0;
-    for(int j = 0;j<anzSpieler;j++)
+    for(int j = 0;j<PlayerNumber;j++)
     {
-        if (Werte[0][j]>maxvalue) {maxvalue=Werte[0][j];
+        if (Values[0][j]>maxvalue) {maxvalue=Values[0][j];
         maxvaluespieler = j;}
     }
 
-    printf("%i. Platz ist %s mit %i Punkten!\n", i,name[maxvaluespieler],maxvalue);
-    Werte[0][maxvaluespieler]=-100;
+    printf("%i. Platz ist %s mit %i Punkten!\n", i,Names[maxvaluespieler],maxvalue);
+    Values[0][maxvaluespieler]=-100;
 }
 
 printf("Kniffel: Developed by Andres Woerrlein, Dennis Wohlfarth, Fabian Schurk.\n");
 }
 
-int SummeOben(int Spieler){
+int SumTop(int player){
     int sum = 0;
 for(int i=0;i<6;i++){
-    if(Werte[i][Spieler-1]!=-1){
-    sum += Werte[i][Spieler-1];}
+    if(Values[i][player-1]!=-1){//-1 is cross
+    sum += Values[i][player-1];}
 }
     return sum;
 }
-int SummeUnten(int Spieler){
+int SumButtom(int player){
     int sum = 0;
 for(int i=6;i<13;i++){
-    if(Werte[i][Spieler-1]!=-1){
-    sum += Werte[i][Spieler-1];}
+    if(Values[i][player-1]!=-1){//-1 is cross
+    sum += Values[i][player-1];}
 }
     return sum;
 }
-int Bonus(int Spieler){
-if (SummeOben(Spieler)>=63)return 35;
+int Bonus(int player){ //Bonus if SumTop>63
+if (SumTop(player)>=63)return 35;
 return 0;
 }
-int gesamt(int Spieler){
+int TotalSum(int player){ //Total Score of Player
 
-return Bonus(Spieler)+SummeOben(Spieler)+SummeUnten(Spieler);
+return Bonus(player)+SumTop(player)+SumButtom(player);
 }
