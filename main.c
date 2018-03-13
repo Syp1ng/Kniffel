@@ -547,7 +547,7 @@ for(int i = 1;i<=PlayerNumber;i++){
 printf("Kniffel: Developed by Andreas W%crrlein, Dennis Wohlfarth, Fabian Schurk.\n",oe);
 }
 
-int SumTop(int player){
+int SumTop(int player){//calculates the sum of the top score table
     int sum = 0;
 for(int i=0;i<6;i++){
     if(Values[i][player-1]!=-1){//-1 is cross
@@ -555,7 +555,7 @@ for(int i=0;i<6;i++){
 }
     return sum;
 }
-int SumButtom(int player){
+int SumButtom(int player){//calculates the sum of the buttom score table
     int sum = 0;
 for(int i=6;i<13;i++){
     if(Values[i][player-1]!=-1){//-1 is cross
