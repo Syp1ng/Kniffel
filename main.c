@@ -4,6 +4,7 @@
 //////////Abfrage/EIntragung nicht doppelt
 //////////Fehlerüberprüfung Eingabe
 //////////Nur stdio.h benutzen ???????????????????????????--> dann bool umändern
+//Farbe bei verschiedenen Spielern
 
 
 //Globale Variablen
@@ -12,6 +13,8 @@ int aktSpieler=1;
 int Wuerfel[5];
 int WuerfelMitgenommen =0;
 int Wurf = 0; //Wurf <=3
+char *Farben;
+short FarbenAktiviert =0;
 int **Werte;
 bool fertig = false;
 char **name;
@@ -24,8 +27,8 @@ int main()
     SpielerAnDerReihe();
     return 0;
 }
-void FarbeAendern(){
-    char color;
+
+void FarbeAnzeigen(){
 printf("0 = Schwarz      8 = Grau\n");
 printf("1 = Blau         9 = Hellblau\n");
 printf("2 = Gruen        A = Hellgruen\n");
@@ -34,9 +37,8 @@ printf("4 = Rot          C = Hellrot\n");
 printf("5 = Lila         D = Helllila\n");
 printf("6 = Gelb         E = Hellgelb\n");
 printf("7 = Hellgrau     F = Weiss\n");
-printf("Bitte Farbe eingeben\n");
-
-scanf("%c", &color);
+}
+void FarbeAendern(char color){
 switch(color){
 case '0':
     system("color 00");
@@ -124,6 +126,7 @@ printf("   Gesamt         :         : %i\n", gesamt(aktSpieler));
 void SpielerAnDerReihe(){//controll structur 4 the game and playerchange
     WuerfelMitgenommen=0;
     printf("\nSpieler %s ist an der Reihe!\n\n", name[aktSpieler-1]);
+    if(FarbenAktiviert==1)FarbeAendern(Farben[aktSpieler-1]);
     while(Wurf<3 && fertig== false){
             AnzeigeTafel();
             generate();
@@ -157,9 +160,14 @@ void init() { //initiallize array, player names
     printf("Anzahl der Spieler: %i\n", anzSpieler);
     char spielername [anzSpieler][30];
 
-
-    name = malloc(anzSpieler * sizeof(char*));
-
+    char farbelesen;
+    printf("Moechten Sie mit unterschiedlichen Farben Spielen?");
+    scanf(" %c", &farbelesen);
+    if(farbelesen=='1'||farbelesen=='j'){FarbenAktiviert=1;
+    printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
+    FarbeAnzeigen();}
+    name = malloc(anzSpieler * sizeof(char*));//Namen
+    Farben = malloc((anzSpieler+1) * sizeof(char*));//Farben
     for(int i = 0; i < anzSpieler; i++) {
     name[i] = malloc((12 + 1) * sizeof(char));}
     printf("Bitte geben Sie %i Namen ein:\n", anzSpieler);
@@ -168,8 +176,11 @@ void init() { //initiallize array, player names
         printf("Geben Sie Spielername %d an: ",i+1);
         scanf("%s", &spielername[i]);
         strcpy(name[i], spielername[i]);
+        if(FarbenAktiviert==1){
+                printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe");
+                scanf(" %c", &Farben[0]);
+                }
     }
-
     for(int i = 0; i < anzSpieler; i++) {
         printf("Spieler %d = %s\n", i+1, spielername[i]);
 
@@ -185,9 +196,15 @@ void init() { //initiallize array, player names
 
 }
 
+int compare (const void * a, const void * b) {
+   int value1=*(int*)a;
+   int value2=*(int*)b;
+   return value1-value2;
+}
 void generate(){//random number
     srand(time(NULL));
     RandomNumberGenerator(5-WuerfelMitgenommen);   // generate a Random number
+    qsort(Wuerfel, 5, sizeof(int), compare);
     WuerfelAnzeige();
 }
 // the random function
@@ -288,7 +305,6 @@ for(int i = 1; i<=6;i++){//Zahlen
 if(gleiche+tempgleiche2==5)return 1;
 return 0;
 }
-
 
 void eingabe(){ //here the user is able to tell the programm, where he writes something down
     printf("Zahl eingeben, 0 für Streichen.\n");
