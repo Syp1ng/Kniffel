@@ -162,14 +162,14 @@ void Initialize() { //initiallize array, player names
         }
 
     printf("Anzahl der Spieler: %i\n", PlayerNumber);
-    char spielername [PlayerNumber][30];
+    char playerName [PlayerNumber][30];
 
-    char farbelesen;
+    char colorRead;
     Clear();
     printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", oe, ue);
-    scanf(" %c", &farbelesen);
-    farbelesen= tolower(farbelesen);
-    if(farbelesen=='1'||farbelesen=='j'){ColorMode=1;
+    scanf(" %c", &colorRead);
+    colorRead= tolower(colorRead);
+    if(colorRead=='1'||colorRead=='j'){ColorMode=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
     Colors = malloc((PlayerNumber+1) * sizeof(char*));//colors
     ShowColorsAvailible();}
@@ -182,8 +182,8 @@ void Initialize() { //initiallize array, player names
     Clear();
     for (int i = 0; i < PlayerNumber; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
-        scanf(" %s", &spielername[i]);
-        strncpy(Names[i], spielername[i],13);//Only size of 13
+        scanf(" %s", &playerName[i]);
+        strncpy(Names[i], playerName[i],13);//Only size of 13
         Names[i][13] = '\0'; //string has to end, set manually
         if(ColorMode==1){ //Only with ColorMode activated
                 printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
@@ -191,7 +191,7 @@ void Initialize() { //initiallize array, player names
                 }
     }
     for(int i = 0; i < PlayerNumber; i++) {
-        printf("Spieler %d = %s\n", i+1, spielername[i]);
+        printf("Spieler %d = %s\n", i+1, playerName[i]);
 
     }
     //Initalize score table
@@ -277,49 +277,48 @@ int CountEverything(){ //counts the sum of all cubes
     return rueckgabe;
 }
 int CountSameValues(){ //checks how many times the most number is there
-int gleiche = 0, tempgleiche = 0;
+int same = 0, tempSame = 0;
 
 for(int i = 1; i<=6;i++){
 
     for(int j = 0;j<5;j++){
 
-        if (Cube[j]== i) tempgleiche++;
+        if (Cube[j]== i) tempSame++;
     }
-    if (tempgleiche >gleiche) gleiche= tempgleiche;
-    tempgleiche=0;
+    if (tempSame >same) same= tempSame;
+    tempSame=0;
 //////////////////////////////////////////////////////////////////////////////
 }
-return gleiche;
+return same;
 }
 int FullHouseCheck(){ //checks if it's FullHouse
-    int gleiche = 0, tempgleiche = 0, tempgleiche2=0;
+    int same = 0, tempSame = 0, tempSame2=0;
 
 for(int i = 1; i<=6;i++){//Zahlen
 
     for(int j = 0;j<5;j++){//Würfel
 
-        if (Cube[j]== i) tempgleiche++;
+        if (Cube[j]== i) tempSame++;
     }
-    if (tempgleiche >gleiche){tempgleiche2= gleiche; gleiche = tempgleiche;}
-    else if (tempgleiche>tempgleiche2)tempgleiche2= tempgleiche;
-    tempgleiche=0;
+    if (tempSame >same){tempSame2= same; same = tempSame;}
+    else if (tempSame>tempSame2)tempSame2= tempSame;
+    tempSame=0;
 //////////////////////////////////////////////////////////////////////////////
 }
-if(gleiche+tempgleiche2==5)return 1;
+if(same+tempSame2==5)return 1;
 return 0;
 }
 
 void FillTable(){ //here the user is able to tell the programm, where he writes something down
     wrong:
-    Clear();
-    printf("Zahl eingeben, \"0\" f%cr Streichen.\n", ue);
+    printf("Wo eintragen? Zahl eingeben, \"0\" f%cr Streichen.\n", ue);
     int points= 0;//how many points to add
     int action; //Which field to fill
     Clear();
         scanf(" %i", &action);
 if(action == 0)
     {}
-else if(action>13)goto wrong;//Wrong input
+else if(action>13) {Clear(); goto wrong;}//Wrong input
 else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
     switch(action){
 case 0:
@@ -328,7 +327,8 @@ case 0:
         continue;
         int feld;
         scanf(" %i", &feld);
-    if(Values[feld-1][CurrentPlayer-1]==0){
+    if(feld<1|| feld>13){printf("Feld nicht verf%cgbar!.\n", ue); goto wrong;}
+    else if(Values[feld-1][CurrentPlayer-1]==0){
         action=feld;
         points=-1;
     }
