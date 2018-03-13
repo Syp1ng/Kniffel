@@ -386,12 +386,15 @@ default:
     goto wrong;
     break;
     }
+if(points==0){printf("Aktion nicht m%cglich!\n", oe);goto wrong;}
    Values[action-1][CurrentPlayer-1] = points;//Fill the table with the points to the current player
    Finish=1;//End players train --> next player
 }
 
 void ShowCubes(){ // display dices graphically
 printf("\n");
+printf("\n");
+printf("%i. Wurf:\n",Throw+1);
 for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all dices
 printf("\n");
 for(int i=0;i<5; i++) printf(" /______/|  "); // secound line is the same for all dices
