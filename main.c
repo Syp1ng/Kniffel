@@ -120,7 +120,7 @@ printf("   Summe unten    :         : %i\n", SumButtom(CurrentPlayer)+Bonus(Curr
 printf("   Gesamt         :         : %i\n", TotalSum(CurrentPlayer));
 }
 
-void GameStructure(){//control structur for the game and playerchange
+void GameStructure(){//control structure for the game and playerchange
     CubesPutAway=0;
     printf("\nSpieler %s ist an der Reihe!\n\n", Names[CurrentPlayer-1]);
     if(ColorMode==1)ChangeColor(Colors[CurrentPlayer-1]);
@@ -171,10 +171,10 @@ void Initialize() { //initiallize array, player names
     farbelesen= tolower(farbelesen);
     if(farbelesen=='1'||farbelesen=='j'){ColorMode=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
-    Colors = malloc((PlayerNumber+1) * sizeof(char*));//Farben
+    Colors = malloc((PlayerNumber+1) * sizeof(char*));//colors
     ShowColorsAvailible();}
     else{printf("Farbfunktion nicht aktiv.\n");}
-    Names = malloc(PlayerNumber * sizeof(char*));//Namen
+    Names = malloc(PlayerNumber * sizeof(char*));//names
     for(int i = 0; i < PlayerNumber; i++) {
     Names[i] = malloc((12 + 1) * sizeof(char));}
     printf("Bitte geben Sie %i Namen ein:\n", PlayerNumber);
@@ -185,7 +185,7 @@ void Initialize() { //initiallize array, player names
         scanf(" %s", &spielername[i]);
         strncpy(Names[i], spielername[i],13);//Only size of 13
         Names[i][13] = '\0'; //string has to end, set manually
-        if(ColorMode==1){ //Only with ColorMode aktivated
+        if(ColorMode==1){ //Only with ColorMode activated
                 printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
                 scanf(" %c", &Colors[i]);
                 }
@@ -222,7 +222,7 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
     for (int i = 0; i < NumbersGenerate; i++)
     {
         RandomNumber = rand()%(6) + 1;
-        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS////////////////////////////////////////////
+        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS////////////////////////
         Cube[i+CubesPutAway]= RandomNumber;
     }
 }
@@ -230,7 +230,7 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     CubesPutAway = 0;
-    printf("\"J\" f%cr ja, \"N\" f%cr nein, \"e\" f%cr gleich eintragen und \"#\" f%ccr alle W%crfel neu w%crfeln. ", ue, ue, ue, ue,ue,ue);
+    printf("\"J\" f%cr ja, \"N\" f%cr nein, \"e\" f%cr gleich eintragen und \"#\" f%cr alle W%crfel neu w%crfeln. \n", ue, ue, ue, ue,ue,ue);
     printf("Bei Falscheingabe wird W%crfel nicht gespeichert!\n", ue);
     for(int i =1; i<= 5; i++){
         char ctemp;
@@ -541,7 +541,7 @@ for(int i = 1;i<=PlayerNumber;i++){
     Values[0][maxvaluespieler]=-100;
 }
 
-printf("Kniffel: Developed by Andres Woerrlein, Dennis Wohlfarth, Fabian Schurk.\n");
+printf("Kniffel: Developed by Andreas W%crrlein, Dennis Wohlfarth, Fabian Schurk.\n",oe);
 }
 
 int SumTop(int player){
