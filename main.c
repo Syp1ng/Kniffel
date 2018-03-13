@@ -15,6 +15,8 @@ int fertig = 0;
 int **Werte;
 char **name;
 char *Farben;
+
+
 int main()
 {
     //Program start
@@ -152,8 +154,10 @@ return 1;
 }
 
 void init() { //initiallize array, player names
+    do{
     printf("Geben Sie die Anzahl der Spieler ein: ");
     scanf("%i", &anzSpieler);
+    }while(anzSpieler<0|| anzSpieler>2147483647);
 
     printf("Anzahl der Spieler: %i\n", anzSpieler);
     char spielername [anzSpieler][30];
@@ -552,10 +556,4 @@ return 0;
 int gesamt(int Spieler){
 
 return Bonus(Spieler)+SummeOben(Spieler)+SummeUnten(Spieler);
-}
-
-
-void PCanderReihe(){
-
-
 }
