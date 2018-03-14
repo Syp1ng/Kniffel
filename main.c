@@ -21,7 +21,6 @@ char ss= (char) 225;//Helpchar ß
 void Clear(){ // Buffer clear of scanf
 while (getchar() != '\n')
         continue;}
-
 void ShowCubes(){ // display dices graphically
 printf("\n");
 printf("\n");
@@ -153,9 +152,7 @@ for(int i = 0;i<5; i++){
    }
    }
    */
-
 }
-
 int SumTop(int player){//calculates the sum of the top score table
     int sum = 0;
 for(int i=0;i<6;i++){
@@ -180,7 +177,6 @@ int TotalSum(int player){ //Total Score of Player
 
 return Bonus(player)+SumTop(player)+SumButtom(player);
 }
-
 void GameOver(){ // Function 4 gameover, to set winner, display winner
     printf("\n\n\n");
 for(int i = 1;i<=PlayerNumber;i++)
@@ -202,7 +198,6 @@ for(int i = 1;i<=PlayerNumber;i++){
 
 printf("Kniffel: Developed by Andreas W%crrlein, Dennis Wohlfarth, Fabian Schurk.\n",oe);
 }
-
 void ShowColorsAvailible(){  //Shows the color table with number
 printf("0 = Schwarz      8 = Grau\n");
 printf("1 = Blau         9 = Hellblau\n");
@@ -269,7 +264,6 @@ default:
     break;
 }
 }
-
 void ShowScoreTable(){ //Shows the scoretable of the current Player
 printf("   Kategorie      : Wertung : Punkte  \n");
 printf("1  Einser         : Augen(1):   %d\n", Values[0][CurrentPlayer-1]);
@@ -291,7 +285,6 @@ printf("13 Chance         :  Summe  :   %d\n", Values[12][CurrentPlayer-1]);
 printf("   Summe unten    :         :   %d\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
 printf("   Gesamt         :         :   %d\n", TotalSum(CurrentPlayer));
 }
-
 //Evaluation
 int Count(int x){ //summ all the x-cubes
     int rueckgabe = 0;
@@ -341,7 +334,6 @@ for(int i = 1; i<=6;i++){//Zahlen
 if(same+tempSame2==5)return 1;
 return 0;
 }
-
 void FillTable(){ //here the user is able to tell the programm, where he writes something down
     wrong:
     printf("Wo eintragen? Zahl der Tabelle eingeben, \"0\" f%cr Streichen.\n", ue);
@@ -422,13 +414,12 @@ if(points==0){printf("Aktion nicht m%cglich!\n", oe);goto wrong;}
    Values[action-1][CurrentPlayer-1] = points;//Fill the table with the points to the current player
    Finish=1;//End players train --> next player
 }
-
 int Compare (const void * a, const void * b) { //compare function for the cubes
    int value1=*(int*)a;
    int value2=*(int*)b;
    return value1-value2;
 }
-// the random function
+// the random functions
 void RandomNumberGenerator(int NumbersGenerate){ //generates random number
     int RandomNumber = 0;
     for (int i = 0; i < NumbersGenerate; i++)
@@ -444,8 +435,6 @@ void Generate(){//random number
     qsort(Cube, 5, sizeof(int), Compare);
     ShowCubes();
 }
-
-
 int IsEverythingFilledOut(){ //Checks the score table if it's full
 for(int i=0;i<13;i++){
     if(Values[i][PlayerNumber-1]==0)
@@ -453,7 +442,6 @@ for(int i=0;i<13;i++){
 }
 return 1;
 }
-
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     CubesPutAway = 0;
@@ -506,7 +494,6 @@ void GameStructure(){//control structure for the game and playerchange
     if(IsEverythingFilledOut()==1)GameOver();//Ends game when table is full
     else{GameStructure();}//Otherwise go on
 }
-
 void Initialize() { //initiallize array, player names
     printf("Tipp: bei Eingaben wird Gro%c/Kleinschreibung nicht beachtet.\n",ss);
     printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 10000): ");
