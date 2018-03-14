@@ -1,4 +1,8 @@
-#include <stdio.h>
+#include <stdio.h> //printf getchar
+#include <stdlib.h> //srand, malloc, qsort, system
+#include <ctype.h> //toUpper()
+#include <string.h> //memcpy, strncpy
+#include <time.h> //time
 
 int PlayerNumber; //How many Players play the game
 int CurrentPlayer=1; //Which Player plays right now
@@ -463,13 +467,13 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         printf("%s, m%cchten Sie W%crfel %d behalten? ", Names[CurrentPlayer-1], oe, ue,i);
         Clear();
             scanf("%c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
-        ctemp = tolower(ctemp);
-        if(ctemp == 'j'){
+        ctemp = toupper(ctemp);
+        if(ctemp == 'J'){
             tempWuerfel[CubesPutAway] = Cube[i-1];          //Save it
             printf("W%crfel %i wird nicht neu gew%crfelt!\n",ue, i,ue);
             CubesPutAway++;
         }
-        else if(ctemp == 'e'){
+        else if(ctemp == 'E'){
             FillTable();
             break;
         }
@@ -521,8 +525,8 @@ void Initialize() { //initiallize array, player names
     Clear();
     printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"J\" oder \"1\", der Rest Bedeutet nein: ", oe, ue);
     scanf(" %c", &colorRead);
-    colorRead= tolower(colorRead);
-    if(colorRead=='1'||colorRead=='j'){ColorMode=1;
+    colorRead= toupper(colorRead);
+    if(colorRead=='1'||colorRead=='J'){ColorMode=1;
     printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und dann danach eingeben.\n");
     Colors = malloc((PlayerNumber+1) * sizeof(char*));//colors
     ShowColorsAvailible();}
@@ -534,7 +538,7 @@ void Initialize() { //initiallize array, player names
     Clear();
     for (int i = 0; i < PlayerNumber; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
-        scanf(" %s", &playerName[i]);
+        scanf(" %s", playerName[i]);
         strncpy(Names[i], playerName[i],13);//Only size of 13
         Names[i][13] = '\0'; //string has to end, set manually
         if(ColorMode==1){ //Only with ColorMode activated
