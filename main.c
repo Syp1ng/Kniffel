@@ -447,7 +447,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
     CubesPutAway = 0;
     printf("\"J\" f%cr ja, \"N\" f%cr nein, \"E\" f%cr gleich eintragen(Sie k%cnnen dann nicht mehr weiterw%crfeln!)\n", ue, ue, ue, oe,ue);
     printf("und \"#\" f%cr alle W%crfel neu w%crfeln.\n",ue,ue,ue);
-    printf("Bei Falscheingabe wird W%crfel nicht gespeichert!\n", ue);
+    printf("Bei Falscheingabe wird W%crfel nicht behalten!\n", ue);
     for(int i =1; i<= 5; i++){
         char ctemp;
         printf("%s, m%cchten Sie W%crfel %d behalten? ", Names[CurrentPlayer-1], oe, ue,i);
