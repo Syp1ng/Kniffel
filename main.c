@@ -99,7 +99,7 @@ void Fill(){ //test function //
 }*/
 }
 void ShowScoreTable(){ //Shows the scoretable of the current Player
-printf("   Kategorie      : Wertung :Spieler\n");
+printf("   Kategorie      : Wertung :Spieler %s \n", Names[CurrentPlayer-1]);
 printf("1  Einser         : Augen(1): %i\n", Values[0][CurrentPlayer-1]);
 printf("2  Zweier         : Augen(2): %i\n", Values[1][CurrentPlayer-1]);
 printf("3  Dreier         : Augen(3): %i\n", Values[2][CurrentPlayer-1]);
