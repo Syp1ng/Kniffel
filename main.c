@@ -571,31 +571,3 @@ int TotalSum(int player){ //Total Score of Player
 
 return Bonus(player)+SumTop(player)+SumButtom(player);
 }
-
-/*void giveAllStats()
-{
-    printf("   Kategorie      : Wertung ");
-    for(int i=1; i<=PlayerNumber;i++) printf(":Spieler "+i+" ");
-    printf("\n1  Einser         : Augen(1)");
-    for(int i=1; i<=PlayerNumber;i++) printf(":%i\n", Values[0][i]");
-
-printf("1  Einser         : Augen(1): %i\n", Values[0][CurrentPlayer-1]);
-printf("2  Zweier         : Augen(2): %i\n", Values[1][CurrentPlayer-1]);
-printf("3  Dreier         : Augen(3): %i\n", Values[2][CurrentPlayer-1]);
-printf("4  Vierer         : Augen(4): %i\n", Values[3][CurrentPlayer-1]);
-printf("5  F%cnfer         : Augen(5): %i\n", ue, Values[4][CurrentPlayer-1]);
-printf("6  Sechser        : Augen(6): %i\n", Values[5][CurrentPlayer-1]);
-printf("   Summe oben     :         : %i\n", SumTop(CurrentPlayer));
-printf("   Bonus (bei 63P):   35    : %i\n", Bonus(CurrentPlayer));
-printf("   Oberer Teil    :         : %i\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("7  Dreierpasch    :  Summe  : %i\n", Values[6][CurrentPlayer-1]);
-printf("8  Viererpasch    :  Summe  : %i\n", Values[7][CurrentPlayer-1]);
-printf("9  Full House     :    25   : %i\n", Values[8][CurrentPlayer-1]);
-printf("10 Kleine Stra%ce  :    30   : %i\n", ss, Values[9][CurrentPlayer-1]);
-printf("11 Gro%ce Stra%ce   :    40   : %i\n", ss, ss, Values[10][CurrentPlayer-1]);
-printf("12 Kniffel        :    50   : %i\n", Values[11][CurrentPlayer-1]);
-printf("13 Chance         :  Summe  : %i\n", Values[12][CurrentPlayer-1]);
-printf("   Summe unten    :         : %i\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("   Gesamt         :         : %i\n", TotalSum(CurrentPlayer));
-}
-*/
