@@ -99,25 +99,25 @@ void Fill(){ //test function //
 }*/
 }
 void ShowScoreTable(){ //Shows the scoretable of the current Player
-printf("   Kategorie      : Wertung :Spieler %s \n", Names[CurrentPlayer-1]);
-printf("1  Einser         : Augen(1): %i\n", Values[0][CurrentPlayer-1]);
-printf("2  Zweier         : Augen(2): %i\n", Values[1][CurrentPlayer-1]);
-printf("3  Dreier         : Augen(3): %i\n", Values[2][CurrentPlayer-1]);
-printf("4  Vierer         : Augen(4): %i\n", Values[3][CurrentPlayer-1]);
-printf("5  F%cnfer         : Augen(5): %i\n", ue, Values[4][CurrentPlayer-1]);
-printf("6  Sechser        : Augen(6): %i\n", Values[5][CurrentPlayer-1]);
-printf("   Summe oben     :         : %i\n", SumTop(CurrentPlayer));
-printf("   Bonus (bei 63P):   35    : %i\n", Bonus(CurrentPlayer));
-printf("   Oberer Teil    :         : %i\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("7  Dreierpasch    :  Summe  : %i\n", Values[6][CurrentPlayer-1]);
-printf("8  Viererpasch    :  Summe  : %i\n", Values[7][CurrentPlayer-1]);
-printf("9  Full House     :    25   : %i\n", Values[8][CurrentPlayer-1]);
-printf("10 Kleine Stra%ce  :    30   : %i\n", ss, Values[9][CurrentPlayer-1]);
-printf("11 Gro%ce Stra%ce   :    40   : %i\n", ss, ss, Values[10][CurrentPlayer-1]);
-printf("12 Kniffel        :    50   : %i\n", Values[11][CurrentPlayer-1]);
-printf("13 Chance         :  Summe  : %i\n", Values[12][CurrentPlayer-1]);
-printf("   Summe unten    :         : %i\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("   Gesamt         :         : %i\n", TotalSum(CurrentPlayer));
+printf("   Kategorie      : Wertung : Punkte  \n");
+printf("1  Einser         : Augen(1):   %i\n", Values[0][CurrentPlayer-1]);
+printf("2  Zweier         : Augen(2):   %i\n", Values[1][CurrentPlayer-1]);
+printf("3  Dreier         : Augen(3):   %i\n", Values[2][CurrentPlayer-1]);
+printf("4  Vierer         : Augen(4):   %i\n", Values[3][CurrentPlayer-1]);
+printf("5  F%cnfer         : Augen(5):   %i\n", ue, Values[4][CurrentPlayer-1]);
+printf("6  Sechser        : Augen(6):   %i\n", Values[5][CurrentPlayer-1]);
+printf("   Summe oben     :         :   %i\n", SumTop(CurrentPlayer));
+printf("   Bonus (bei 63P):   35    :   %i\n", Bonus(CurrentPlayer));
+printf("   Oberer Teil    :         :   %i\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("7  Dreierpasch    :  Summe  :   %i\n", Values[6][CurrentPlayer-1]);
+printf("8  Viererpasch    :  Summe  :   %i\n", Values[7][CurrentPlayer-1]);
+printf("9  Full House     :    25   :   %i\n", Values[8][CurrentPlayer-1]);
+printf("10 Kleine Stra%ce  :    30   :   %i\n", ss, Values[9][CurrentPlayer-1]);
+printf("11 Gro%ce Stra%ce   :    40   :   %i\n", ss, ss, Values[10][CurrentPlayer-1]);
+printf("12 Kniffel        :    50   :   %i\n", Values[11][CurrentPlayer-1]);
+printf("13 Chance         :  Summe  :   %i\n", Values[12][CurrentPlayer-1]);
+printf("   Summe unten    :         :   %i\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("   Gesamt         :         :   %i\n", TotalSum(CurrentPlayer));
 }
 
 void GameStructure(){//control structure for the game and playerchange
@@ -154,6 +154,7 @@ while (getchar() != '\n')
         continue;}
 
 void Initialize() { //initiallize array, player names
+    printf("Tipp: bei Eingaben wird Gro%c/Kleinschreibung nicht beachtet.\n",ss);
     printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 10000): ");
     scanf("%i", &PlayerNumber);
     if (PlayerNumber<1||PlayerNumber>10000){ //Error if <1 .... Max 10000 players
@@ -166,19 +167,18 @@ void Initialize() { //initiallize array, player names
 
     char colorRead;
     Clear();
-    printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"j\" oder \"1\": ", oe, ue);
+    printf("M%cchten Sie mit unterschiedlichen Farben Spielen? F%cr ja bitte \"J\" oder \"1\", der Rest Bedeutet nein: ", oe, ue);
     scanf(" %c", &colorRead);
     colorRead= tolower(colorRead);
     if(colorRead=='1'||colorRead=='j'){ColorMode=1;
-    printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und nach seinem Namen eingeben.\n");
+    printf("Hier sind die Farben: Jeder Spieler soll sich eine heraussuchen und dann danach eingeben.\n");
     Colors = malloc((PlayerNumber+1) * sizeof(char*));//colors
     ShowColorsAvailible();}
     else{printf("Farbfunktion nicht aktiv.\n");}
     Names = malloc(PlayerNumber * sizeof(char*));//names
-    for(int i = 0; i < PlayerNumber; i++) {
+    for(int i = 0; i < PlayerNumber; i++) {//Names array
     Names[i] = malloc((12 + 1) * sizeof(char));}
-    printf("Bitte geben Sie %i Namen ein:\n", PlayerNumber);
-
+    printf("Der Name des Spielers wird auf 13 Stellen abgek%crzt.\n", ue);
     Clear();
     for (int i = 0; i < PlayerNumber; i++) {
         printf("Geben Sie Spielername %d an: ",i+1);
@@ -186,12 +186,12 @@ void Initialize() { //initiallize array, player names
         strncpy(Names[i], playerName[i],13);//Only size of 13
         Names[i][13] = '\0'; //string has to end, set manually
         if(ColorMode==1){ //Only with ColorMode activated
-                printf("Deine Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
+                printf("Ihre Spielerfarbe bitte. Nur eine Zahl/Buchstabe: ");
                 scanf(" %c", &Colors[i]);
                 }
     }
     for(int i = 0; i < PlayerNumber; i++) {
-        printf("Spieler %d = %s\n", i+1, playerName[i]);
+        printf("Spieler %d hei%ct %s\n", i+1,ss, playerName[i]);
 
     }
     //Initalize score table
@@ -230,17 +230,18 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     CubesPutAway = 0;
-    printf("\"J\" f%cr ja, \"N\" f%cr nein, \"e\" f%cr gleich eintragen und \"#\" f%cr alle W%crfel neu w%crfeln. \n", ue, ue, ue, ue,ue,ue);
+    printf("\"J\" f%cr ja, \"N\" f%cr nein, \"E\" f%cr gleich eintragen(Sie k%cnnen dann nicht mehr weiterw%crfeln!)\n", ue, ue, ue, oe,ue);
+    printf("und \"#\" f%cr alle W%crfel neu w%crfeln.\n",ue,ue,ue);
     printf("Bei Falscheingabe wird W%crfel nicht gespeichert!\n", ue);
     for(int i =1; i<= 5; i++){
         char ctemp;
-        printf("%s: M%cchtest du W%crfel %d speichern? \n", Names[CurrentPlayer-1], oe, ue,i);
+        printf("%s, m%cchten Sie W%crfel %d behalten? ", Names[CurrentPlayer-1], oe, ue,i);
         Clear();
             scanf("%c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
         ctemp = tolower(ctemp);
         if(ctemp == 'j'){
             tempWuerfel[CubesPutAway] = Cube[i-1];          //Save it
-            printf("W%crfel %i wurde gespeichert!\n",ue, i);
+            printf("W%crfel %i wird nicht neu gew%crfelt!\n",ue, i,ue);
             CubesPutAway++;
         }
         else if(ctemp == 'e'){
@@ -252,7 +253,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             break;
         }
         else{
-            printf("W%crfel %i wurde nicht gespeichert!\n", ue, i);
+            printf("W%crfel %i wird neu gew%crfelt!\n", ue, i,ue);
         }
     }
     memcpy(Cube, tempWuerfel,CubesPutAway*sizeof(int));
@@ -318,13 +319,12 @@ void FillTable(){ //here the user is able to tell the programm, where he writes 
         scanf(" %i", &action);
 if(action == 0)
     {}
-else if(action>13) {Clear(); goto wrong;}//Wrong input
+else if(action<1||action>13) goto wrong;//Wrong input
 else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
     switch(action){
 case 0:
-    printf("Welches Feld willst du streichen?");
-    while (getchar() != '\n')
-        continue;
+    printf("Welches Feld wollen Sie streichen?");
+    Clear();
         int feld;
         scanf(" %i", &feld);
     if(feld<1|| feld>13){printf("Feld nicht verf%cgbar!.\n", ue); goto wrong;}
