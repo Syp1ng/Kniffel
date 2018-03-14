@@ -345,6 +345,7 @@ if(action == 0)
     {}
 else if(action<1||action>13) goto wrong;//Wrong input
 else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
+else goto wrong;
     switch(action){
 case 0:
     printf("Welches Feld wollen Sie streichen?");
@@ -496,9 +497,9 @@ void GameStructure(){//control structure for the game and playerchange
 }
 void Initialize() { //initiallize array, player names
     printf("Tipp: bei Eingaben wird Gro%c/Kleinschreibung nicht beachtet.\n",ss);
-    printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 10000): ");
+    printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 1000): ");
     scanf("%d", &PlayerNumber);
-    if (PlayerNumber<1||PlayerNumber>10000){ //Error if <1 .... Max 10000 players
+    if (PlayerNumber<1||PlayerNumber>1000){ //Error if <1 .... Max 10000 players
         printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
             PlayerNumber=1;
         }
