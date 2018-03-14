@@ -1,6 +1,6 @@
 #include <stdio.h> //printf getchar
 #include <stdlib.h> //srand, malloc, qsort, system
-#include <ctype.h> //toUpper()
+#include <ctype.h> //toUpper
 #include <string.h> //memcpy, strncpy
 #include <time.h> //time
 
@@ -292,7 +292,6 @@ printf("   Summe unten    :         :   %i\n", SumButtom(CurrentPlayer)+Bonus(Cu
 printf("   Gesamt         :         :   %i\n", TotalSum(CurrentPlayer));
 }
 
-
 //Evaluation
 int Count(int x){ //summ all the x-cubes
     int rueckgabe = 0;
@@ -560,8 +559,6 @@ void Initialize() { //initiallize array, player names
     }
 
 }
-
-
 
 int main()//Program start
 {
