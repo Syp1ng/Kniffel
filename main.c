@@ -25,7 +25,7 @@ while (getchar() != '\n')
 void ShowCubes(){ // display dices graphically
 printf("\n");
 printf("\n");
-printf("%i. Wurf:\n",Throw+1);
+printf("%d. Wurf:\n",Throw+1);
 for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all dices
 printf("\n");
 for(int i=0;i<5; i++) printf(" /______/|  "); // secound line is the same for all dices
@@ -196,7 +196,7 @@ for(int i = 1;i<=PlayerNumber;i++){
         maxvaluespieler = j;}
     }
 
-    printf("%i. Platz ist %s mit %i Punkten!\n", i,Names[maxvaluespieler],maxvalue);
+    printf("%d. Platz ist %s mit %d Punkten!\n", i,Names[maxvaluespieler],maxvalue);
     Values[0][maxvaluespieler]=-100;
 }
 
@@ -272,24 +272,24 @@ default:
 
 void ShowScoreTable(){ //Shows the scoretable of the current Player
 printf("   Kategorie      : Wertung : Punkte  \n");
-printf("1  Einser         : Augen(1):   %i\n", Values[0][CurrentPlayer-1]);
-printf("2  Zweier         : Augen(2):   %i\n", Values[1][CurrentPlayer-1]);
-printf("3  Dreier         : Augen(3):   %i\n", Values[2][CurrentPlayer-1]);
-printf("4  Vierer         : Augen(4):   %i\n", Values[3][CurrentPlayer-1]);
-printf("5  F%cnfer         : Augen(5):   %i\n", ue, Values[4][CurrentPlayer-1]);
-printf("6  Sechser        : Augen(6):   %i\n", Values[5][CurrentPlayer-1]);
-printf("   Summe oben     :         :   %i\n", SumTop(CurrentPlayer));
-printf("   Bonus (bei 63P):   35    :   %i\n", Bonus(CurrentPlayer));
-printf("   Oberer Teil    :         :   %i\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("7  Dreierpasch    :  Summe  :   %i\n", Values[6][CurrentPlayer-1]);
-printf("8  Viererpasch    :  Summe  :   %i\n", Values[7][CurrentPlayer-1]);
-printf("9  Full House     :    25   :   %i\n", Values[8][CurrentPlayer-1]);
-printf("10 Kleine Stra%ce  :    30   :   %i\n", ss, Values[9][CurrentPlayer-1]);
-printf("11 Gro%ce Stra%ce   :    40   :   %i\n", ss, ss, Values[10][CurrentPlayer-1]);
-printf("12 Kniffel        :    50   :   %i\n", Values[11][CurrentPlayer-1]);
-printf("13 Chance         :  Summe  :   %i\n", Values[12][CurrentPlayer-1]);
-printf("   Summe unten    :         :   %i\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
-printf("   Gesamt         :         :   %i\n", TotalSum(CurrentPlayer));
+printf("1  Einser         : Augen(1):   %d\n", Values[0][CurrentPlayer-1]);
+printf("2  Zweier         : Augen(2):   %d\n", Values[1][CurrentPlayer-1]);
+printf("3  Dreier         : Augen(3):   %d\n", Values[2][CurrentPlayer-1]);
+printf("4  Vierer         : Augen(4):   %d\n", Values[3][CurrentPlayer-1]);
+printf("5  F%cnfer         : Augen(5):   %d\n", ue, Values[4][CurrentPlayer-1]);
+printf("6  Sechser        : Augen(6):   %d\n", Values[5][CurrentPlayer-1]);
+printf("   Summe oben     :         :   %d\n", SumTop(CurrentPlayer));
+printf("   Bonus (bei 63P):   35    :   %d\n", Bonus(CurrentPlayer));
+printf("   Oberer Teil    :         :   %d\n", SumTop(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("7  Dreierpasch    :  Summe  :   %d\n", Values[6][CurrentPlayer-1]);
+printf("8  Viererpasch    :  Summe  :   %d\n", Values[7][CurrentPlayer-1]);
+printf("9  Full House     :    25   :   %d\n", Values[8][CurrentPlayer-1]);
+printf("10 Kleine Stra%ce  :    30   :   %d\n", ss, Values[9][CurrentPlayer-1]);
+printf("11 Gro%ce Stra%ce   :    40   :   %d\n", ss, ss, Values[10][CurrentPlayer-1]);
+printf("12 Kniffel        :    50   :   %d\n", Values[11][CurrentPlayer-1]);
+printf("13 Chance         :  Summe  :   %d\n", Values[12][CurrentPlayer-1]);
+printf("   Summe unten    :         :   %d\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
+printf("   Gesamt         :         :   %d\n", TotalSum(CurrentPlayer));
 }
 
 //Evaluation
@@ -348,7 +348,7 @@ void FillTable(){ //here the user is able to tell the programm, where he writes 
     int points= 0;//how many points to add
     int action; //Which field to fill
     Clear();
-        scanf(" %i", &action);
+        scanf(" %d", &action);
 if(action == 0)
     {}
 else if(action<1||action>13) goto wrong;//Wrong input
@@ -358,7 +358,7 @@ case 0:
     printf("Welches Feld wollen Sie streichen?");
     Clear();
         int feld;
-        scanf(" %i", &feld);
+        scanf(" %d", &feld);
     if(feld<1|| feld>13){printf("Feld nicht verf%cgbar!.\n", ue); goto wrong;}
     else if(Values[feld-1][CurrentPlayer-1]==0){
         action=feld;
@@ -454,7 +454,6 @@ for(int i=0;i<13;i++){
 return 1;
 }
 
-
 void SelectCube(){ //here the user tells the programm, which cubes he want to reroll or not
     int tempWuerfel[5];
     CubesPutAway = 0;
@@ -469,7 +468,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         ctemp = toupper(ctemp);
         if(ctemp == 'J'){
             tempWuerfel[CubesPutAway] = Cube[i-1];          //Save it
-            printf("W%crfel %i wird nicht neu gew%crfelt!\n",ue, i,ue);
+            printf("W%crfel %d wird nicht neu gew%crfelt!\n",ue, i,ue);
             CubesPutAway++;
         }
         else if(ctemp == 'E'){
@@ -481,7 +480,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
             break;
         }
         else{
-            printf("W%crfel %i wird neu gew%crfelt!\n", ue, i,ue);
+            printf("W%crfel %d wird neu gew%crfelt!\n", ue, i,ue);
         }
     }
     memcpy(Cube, tempWuerfel,CubesPutAway*sizeof(int));
@@ -511,13 +510,13 @@ void GameStructure(){//control structure for the game and playerchange
 void Initialize() { //initiallize array, player names
     printf("Tipp: bei Eingaben wird Gro%c/Kleinschreibung nicht beachtet.\n",ss);
     printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 10000): ");
-    scanf("%i", &PlayerNumber);
+    scanf("%d", &PlayerNumber);
     if (PlayerNumber<1||PlayerNumber>10000){ //Error if <1 .... Max 10000 players
         printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
             PlayerNumber=1;
         }
 
-    printf("Anzahl der Spieler: %i\n", PlayerNumber);
+    printf("Anzahl der Spieler: %d\n", PlayerNumber);
     char playerName [PlayerNumber][30];
 
     char colorRead;
