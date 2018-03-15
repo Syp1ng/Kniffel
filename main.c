@@ -499,7 +499,7 @@ void Initialize() { //initiallize array, player names
     printf("Das \"-1\" in der Tabelle steht daf%cr, dass Sie dieses Feld gestrichen haben.\n",ue);
     printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 1000): ");
     scanf("%d", &PlayerNumber);
-    if (PlayerNumber<1||PlayerNumber>1000){ //Error if <1 .... Max 10000 players
+    if (PlayerNumber<1||PlayerNumber>1000){ //Error if <1 .... Max 1000 players
         printf("Fehler. Spieleranzahl wurde automatisch auf 1 gesetzt\n");
             PlayerNumber=1;
         }
