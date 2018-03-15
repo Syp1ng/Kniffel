@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1521039901 source:c:\users\fsc\documents\c projects\kniffel\main.c
+1521097538 source:c:\users\fsc\documents\c projects\kniffel\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>

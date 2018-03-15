@@ -335,23 +335,22 @@ if(same+tempSame2==5)return 1;
 return 0;
 }
 void FillTable(){ //here the user is able to tell the programm, where he writes something down
-    wrong:
+    wrong: //used goto :(
     printf("Wo eintragen? Zahl der Tabelle eingeben, \"0\" f%cr Streichen.\n", ue);
     int points= 0;//how many points to add
     int action; //Which field to fill
     Clear();
-        scanf(" %d", &action);
+        scanf("%d",&action);
 if(action == 0)
     {}
 else if(action<1||action>13) goto wrong;//Wrong input
 else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
-else goto wrong;
     switch(action){
 case 0:
     printf("Welches Feld wollen Sie streichen?");
     Clear();
         int feld;
-        scanf(" %d", &feld);
+        if(scanf("%d",&feld)==0) goto wrong;
     if(feld<1|| feld>13){printf("Feld nicht verf%cgbar!.\n", ue); goto wrong;}
     else if(Values[feld-1][CurrentPlayer-1]==0){
         action=feld;
@@ -497,6 +496,7 @@ void GameStructure(){//control structure for the game and playerchange
 }
 void Initialize() { //initiallize array, player names
     printf("Tipp: bei Eingaben wird Gro%c/Kleinschreibung nicht beachtet.\n",ss);
+    printf("Das \"-1\" in der Tabelle steht daf%cr, dass Sie dieses Feld gestrichen haben.\n",ue);
     printf("Geben Sie die Anzahl der Spieler ein (Begrenzt bis auf 1000): ");
     scanf("%d", &PlayerNumber);
     if (PlayerNumber<1||PlayerNumber>1000){ //Error if <1 .... Max 10000 players
