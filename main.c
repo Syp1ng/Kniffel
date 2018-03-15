@@ -338,7 +338,7 @@ void FillTable(){ //here the user is able to tell the programm, where he writes 
     wrong: //used goto :(
     printf("Wo eintragen? Zahl der Tabelle eingeben, \"0\" f%cr Streichen.\n", ue);
     int points= 0;//how many points to add
-    int action; //Which field to fill
+    int action=-1; //Which field to fill
     Clear();
         scanf("%d",&action);
 if(action == 0)
@@ -349,7 +349,7 @@ else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n");
 case 0:
     printf("Welches Feld wollen Sie streichen?");
     Clear();
-        int feld;
+        int feld=-1;
         if(scanf("%d",&feld)==0) goto wrong;
     if(feld<1|| feld>13){printf("Feld nicht verf%cgbar!.\n", ue); goto wrong;}
     else if(Values[feld-1][CurrentPlayer-1]==0){
@@ -549,6 +549,7 @@ void Initialize() { //initiallize array, player names
 
 int main()//Program start
 {
+    printf("Willkommen zu Kniffel!\n");
     //Program start
     Initialize();
     GameStructure();
