@@ -452,7 +452,7 @@ void SelectCube(){ //here the user tells the programm, which cubes he want to re
         char ctemp;
         printf("%s, m%cchten Sie W%crfel %d behalten? ", Names[CurrentPlayer-1], oe, ue,i);
         Clear();
-            scanf("%c", &ctemp);//}while(ctemp!='j'|| ctemp!='n'||ctemp!='e'|| ctemp!='#');
+        scanf("%c", &ctemp);
         ctemp = toupper(ctemp);
         if(ctemp == 'J'){
             tempWuerfel[CubesPutAway] = Cube[i-1];          //Save it
