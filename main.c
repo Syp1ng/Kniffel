@@ -29,7 +29,7 @@ for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all 
 printf("\n");
 for(int i=0;i<5; i++) printf(" /______/|  "); // secound line is the same for all dices
 printf("\n");
-for(int i=0;i<5; i++) // third line is not equal
+for(int i=0;i<5; i++) //third line is not equal
 {
     switch(Cube[i]){         //Adapt third line to the corresponding number
     case 1:
