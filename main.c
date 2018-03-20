@@ -4,6 +4,8 @@
 #include <string.h> //memcpy, strncpy
 #include <time.h> //time
 
+//The created zip with the Kniffel.exe triggered an alarm in our company. It says it's a trojaner.....
+
 int PlayerNumber; //How many Players play the game
 int CurrentPlayer=1; //Which Player plays right now
 int Cube[5]; //Saves the values of the cubes, 5 Cubes
