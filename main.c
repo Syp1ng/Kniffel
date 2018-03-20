@@ -425,7 +425,6 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
     for (int i = 0; i < NumbersGenerate; i++)
     {
         RandomNumber = rand()%(6) + 1;
-        printf("%d ", RandomNumber);//////MUSSSSSSSSSSSSSSSSSSSSS RAUS////////////////////////
         Cube[i+CubesPutAway]= RandomNumber;
     }
 }
