@@ -4,6 +4,7 @@
 #include <string.h> //memcpy, strncpy
 #include <time.h> //time
 
+//Developed by Andreas Wörrlein, Dennis Wohlfarth, Fabian Schurk
 //The created zip with the Kniffel.exe triggered an alarm in our company. It says it's a trojaner.....
 
 int PlayerNumber; //How many Players play the game
