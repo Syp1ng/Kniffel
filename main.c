@@ -444,8 +444,6 @@ void Generate(){//random number
     srand(time(NULL));
     RandomNumberGenerator(5-CubesPutAway);   // generate a Random number
     qsort(Cube, 5, sizeof(int), Compare);
-    Cube[1]=Cube[0];
-    Cube[2]=Cube[0];Cube[3]=Cube[0];Cube[4]=Cube[0];
     ShowCubes();
 }
 int IsEverythingFilledOut(){ //Checks the score table if it's full
