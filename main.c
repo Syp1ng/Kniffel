@@ -26,7 +26,6 @@ while (getchar() != '\n')
         continue;}
 void ShowCubes(){ // display dices graphically
 printf("\n");
-printf("\n");
 printf("%d. Wurf:\n",Throw+1);
 for(int i=0;i<5; i++) printf("  _______   "); // first line is the same for all dices
 printf("\n");
@@ -441,7 +440,7 @@ void RandomNumberGenerator(int NumbersGenerate){ //generates random number
     }
 }
 void Generate(){//random number
-    srand(time(NULL));
+    printf("\nSie haben mit %i W%crfel gew%crfelt!",5-CubesPutAway,ue,ue);
     RandomNumberGenerator(5-CubesPutAway);   // generate a Random number
     qsort(Cube, 5, sizeof(int), Compare);
     ShowCubes();
@@ -561,6 +560,7 @@ void Initialize() { //initiallize array, player names
 int main()//Program start
 {
     printf("Willkommen zu Kniffel!\n");
+    srand(time(NULL));
     //Program start
     Initialize();
     GameStructure();
