@@ -166,7 +166,7 @@ for(int i=0;i<6;i++){
 }
 int SumButtom(int player){//calculates the sum of the buttom score table
     int sum = 0;
-for(int i=6;i<13;i++){
+for(int i=6;i<14;i++){
     if(Values[i][player-1]!=-1){//-1 is cross
     sum += Values[i][player-1];}
 }
@@ -285,6 +285,7 @@ printf("10 Kleine Stra%ce  :    30   :   %d\n", ss, Values[9][CurrentPlayer-1]);
 printf("11 Gro%ce Stra%ce   :    40   :   %d\n", ss, ss, Values[10][CurrentPlayer-1]);
 printf("12 Kniffel        :    50   :   %d\n", Values[11][CurrentPlayer-1]);
 printf("13 Chance         :  Summe  :   %d\n", Values[12][CurrentPlayer-1]);
+printf(" Weitere Kniffel  :         :   %d\n", Values[13][CurrentPlayer-1]);
 printf("   Summe unten    :         :   %d\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
 printf("   Gesamt         :         :   %d\n", TotalSum(CurrentPlayer));
 }
@@ -344,7 +345,7 @@ void FillTable(){ //here the user is able to tell the programm, where he writes 
     int action=-1; //Which field to fill
     Clear();
         scanf("%d",&action);
-if(action == 0)
+if(action == 0||action ==12)//no check, later check
     {}
 else if(action<1||action>13) goto wrong;//Wrong input
 else if(Values[action-1][CurrentPlayer-1]!=0){ printf("Feld schon besetzt! \n"); goto wrong;} //field is already filled
@@ -403,7 +404,15 @@ case 11:
         )points = 40;
     break;
 case 12:
-    if (CountSameValues()== 5) points = 50;
+    if (CountSameValues()== 5){
+        if(Values[action-1][CurrentPlayer-1]==0)points = 50;//1st
+        else if(Values[action-1][CurrentPlayer-1]!=0&&Values[Cube[0]-1][CurrentPlayer-1]==0){ //for more then 1 Kniffel
+            action=14;
+            points = 50;
+            Values[Cube[0]-1][CurrentPlayer-1]+=(Cube[0]*5);
+        }
+        else goto wrong;//next Kniffel not possible
+    }
     break;
 case 13:
     points = CountEverything();
@@ -435,6 +444,8 @@ void Generate(){//random number
     srand(time(NULL));
     RandomNumberGenerator(5-CubesPutAway);   // generate a Random number
     qsort(Cube, 5, sizeof(int), Compare);
+    Cube[1]=Cube[0];
+    Cube[2]=Cube[0];Cube[3]=Cube[0];Cube[4]=Cube[0];
     ShowCubes();
 }
 int IsEverythingFilledOut(){ //Checks the score table if it's full
@@ -539,9 +550,9 @@ void Initialize() { //initiallize array, player names
 
     }
     //Initalize score table
-    Values =(int **) malloc(13*sizeof(int *));
-    for(int i=0;i<13;i++) Values[i]=(int *) malloc(PlayerNumber*sizeof(int));
-    for(int i = 0;i<13;i++){ //set to 0
+    Values =(int **) malloc(14*sizeof(int *));
+    for(int i=0;i<14;i++) Values[i]=(int *) malloc(PlayerNumber*sizeof(int));
+    for(int i = 0;i<14;i++){ //set to 0
         for(int j = 0; j<PlayerNumber; j++){
             Values[i][j] =0;
         }
