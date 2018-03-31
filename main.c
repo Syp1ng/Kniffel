@@ -6,6 +6,7 @@
 
 //Developed by Andreas Wörrlein, Dennis Wohlfarth, Fabian Schurk
 //The created zip with the Kniffel.exe triggered an alarm in our company. It says it's a trojaner.....
+//additional features: colormode, sorting of the cubes.
 
 int PlayerNumber; //How many Players play the game
 int CurrentPlayer=1; //Which Player plays right now
@@ -284,7 +285,7 @@ printf("10 Kleine Stra%ce  :    30   :   %d\n", ss, Values[9][CurrentPlayer-1]);
 printf("11 Gro%ce Stra%ce   :    40   :   %d\n", ss, ss, Values[10][CurrentPlayer-1]);
 printf("12 Kniffel        :    50   :   %d\n", Values[11][CurrentPlayer-1]);
 printf("13 Chance         :  Summe  :   %d\n", Values[12][CurrentPlayer-1]);
-printf(" Weitere Kniffel  :         :   %d\n", Values[13][CurrentPlayer-1]);
+printf("   Weitere Kniffel:         :   %d\n", Values[13][CurrentPlayer-1]);
 printf("   Summe unten    :         :   %d\n", SumButtom(CurrentPlayer)+Bonus(CurrentPlayer));
 printf("   Gesamt         :         :   %d\n", TotalSum(CurrentPlayer));
 }
